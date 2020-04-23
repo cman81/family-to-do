@@ -1,0 +1,49 @@
+body,
+html {
+    height: 100%;
+}
+
+body {
+    background-image: url("/northern-va.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.row.existing.task {
+    background-color: white;
+    opacity: 0.95;
+    padding: 2px 12px 0px 16px;
+    border-radius: 15px;
+    margin: 2px 0px 0;
+}
+
+#add-task::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #f8f9fa;
+}
+.new.task .form-group {
+    margin-bottom: 0.1rem;
+    margin-top: 0.2rem;
+}
+.new.task input {
+    padding: 24px;
+}
+.task-name .form-control-plaintext {
+    padding: 0;
+}
+.task-due {
+    line-height: 1;
+    color: #007bff;
+}
+.form-group.task-details {
+    margin-bottom: 0.4rem;
+}
+.form-group.task-checkbox {
+    margin-bottom: 0;
+    margin-right: 7px;
+}
+.task-checkbox input {
+    width: 22px;
+    height: 22px;
+}
