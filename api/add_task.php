@@ -10,8 +10,8 @@
         VALUES
         (:task_name, :date_created)
     ";
-
     $stmt = $db->prepare($sql);
+
     // passing values to the parameters
     $stmt->bindValue(':task_name', $_POST['name']);
     $stmt->bindValue(':date_created', time());

@@ -10,6 +10,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+// TODO: remove this sample dataset
 var localTasks = [
     {
         id: 1,
@@ -31,8 +32,10 @@ var localTasks = [
         dateDue: 'Fri, Apr 24',
         isMore: true
     },
-
 ];
+localtasks = [];
+
+var tempIdMap = {};
 
 $(function() {
     document
@@ -42,11 +45,37 @@ $(function() {
         });
 
     $('.existing.task').on('change', '.task-checkbox input', function() {
-        console.log($(this).data());
+        markComplete($(this).val());
     })
 
     loadTasks();
 });
+
+function playSound(cssId) {
+    const sound = $(cssId)[0];
+    if (!sound) {
+        return;
+    }
+
+    sound.currentTime = 0;
+    sound.play();
+}
+
+function markComplete(taskId) {
+    // mark complete client-side
+    document.getElementById(`task-${taskId}`).remove();
+    playSound('#low-conga');
+
+    if (taskId.match('temp')) {
+        taskId = tempIdMap[taskId] ?? false;
+    }
+
+    if (!taskId) { return; }
+
+    // mark complete server-side
+    const myRequest = new Request(`api/complete_task.php?taskId=${taskId}`);
+    fetch(myRequest);
+}
 
 function loadTasks() {
     const myRequest = new Request('api/load_tasks.php');
@@ -96,6 +125,9 @@ function actionHandler(event) {
     }
 }
 
+/**
+ * Associate a newly created task with the id that we get from the database.
+ */
 function updateTempTask(response) {
     for (let key in localTasks) {
         const value = localTasks[key];
@@ -105,6 +137,8 @@ function updateTempTask(response) {
 
         localTasks[key].id = response.id;
         delete localTasks[key].tempId;
+
+        tempIdMap[response.tempId] = response.id;
         break;
     }
 }
@@ -113,7 +147,7 @@ function updateTempTask(response) {
  * @see https://stackoverflow.com/a/32649933
  */
 function generateTempId() {
-    return (+new Date).toString(36);
+    return 'temp-' + (+new Date).toString(36);
 }
 
 function renderTaskList() {
@@ -135,22 +169,22 @@ function renderTaskList() {
 
 function renderTask(task) {
     return `
-            <div class="row">
-                <div class="col">
-                <form class="form-inline">
-                    <div class="form-group task-checkbox">
+        <div class="row" id="task-${task.id}">
+            <div class="col">
+            <form class="form-inline">
+                <div class="form-group task-checkbox">
                     <input class="form-check-input position-static" type="checkbox" value="${task.id}" aria-label="..." />
-                    </div>
-                    <div class="form-group task-details ${task.dateDue ? '' : 'no-due'}" data-task-id="${task.id}">
-                        <div class="task-name">${task.name}</div>
-                    </div>
-                    <div class="form-group task-icons float-right">
-                        ${task.isMore ? pencilIcon() : ''}
-                    </div>
-                </form>
                 </div>
+                <div class="form-group task-details ${task.dateDue ? '' : 'no-due'}" data-task-id="${task.id}">
+                    <div class="task-name">${task.name}</div>
+                </div>
+                <div class="form-group task-icons float-right">
+                    ${task.isMore ? pencilIcon() : ''}
+                </div>
+            </form>
             </div>
-        `;
+        </div>
+    `;
 }
 
 function pencilIcon() {
