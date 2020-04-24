@@ -34,36 +34,51 @@ var localTasks = [
 
 ];
 
-
-const ready = function (cb) {
-    // Check if the `document` is loaded completely
-    document.readyState === "loading"
-        ? document.addEventListener("DOMContentLoaded", function (e) {
-            cb();
-        })
-        : cb();
-};
-
-  
-ready(function() {
+$(function() {
     document
         .querySelectorAll('#actions button')
         .forEach(element => {
             element.addEventListener('click', actionHandler);
         });
 
+    $('.existing.task').on('change', '.task-checkbox input', function() {
+        console.log($(this).data());
+    })
+
+    loadTasks();
+});
+
+function loadTasks() {
     const myRequest = new Request('api/load_tasks.php');
     fetch(myRequest)
         .then(response => response.json())
-        .then(renderTaskList);
-})
+        .then(response => {
+            localTasks = response;
+            renderTaskList();
+        });
+}
 
 function actionHandler(event) {
     const operation = event.currentTarget.getAttribute('data-operation');
 
     if (operation == 'addTask') {
-        const taskName = document.getElementById('add-task').value;
+        $addTask = document.getElementById('add-task');
+        const taskName = $addTask.value;
+        $addTask.value = '';
 
+        const tempId = generateTempId();
+        const newTask = {
+            id: tempId,
+            name: taskName,
+            tempId: tempId,
+        };
+
+        // insert task client-side
+        localTasks.unshift(newTask);
+        const $container = $('.container.existing.task');
+        $container.prepend(renderTask(newTask));
+
+        // insert task server-side
         const myRequest = new Request(
             'api/add_task.php',
             {
@@ -72,24 +87,54 @@ function actionHandler(event) {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    name: taskName
-                })
+                body: JSON.stringify(newTask)
             }
         );
         fetch(myRequest)
             .then(response => response.json())
-            .then(renderTaskList); 
-        console.log(taskName);
+            .then(updateTempTask); 
     }
 }
 
-function renderTaskList(tasks) {
+function updateTempTask(response) {
     for (let key in localTasks) {
-        const task = tasks[key];
+        const value = localTasks[key];
+
+        if (!value.tempId) { continue; }
+        if (value.tempId != response.tempId) { continue; }
+
+        localTasks[key].id = response.id;
+        delete localTasks[key].tempId;
+        break;
+    }
+}
+
+/**
+ * @see https://stackoverflow.com/a/32649933
+ */
+function generateTempId() {
+    return (+new Date).toString(36);
+}
+
+function renderTaskList() {
+    for (let key in localTasks) {
+        const task = localTasks[key];
 
         const $container = $('.container.existing.task');
-        $container.append(`
+        $container.append(renderTask(task));
+
+        if (task.dateDue) {
+            $container.find('.task-details').last().append(`
+                <div class="task-due">
+                    <small>${task.dateDue}</small>
+                </div>
+            `);
+        }
+    }
+}
+
+function renderTask(task) {
+    return `
             <div class="row">
                 <div class="col">
                 <form class="form-inline">
@@ -105,16 +150,7 @@ function renderTaskList(tasks) {
                 </form>
                 </div>
             </div>
-        `);
-
-        if (task.dateDue) {
-            $container.find('.task-details').last().append(`
-                <div class="task-due">
-                    <small>${task.dateDue}</small>
-                </div>
-            `);
-        }
-    }
+        `;
 }
 
 function pencilIcon() {

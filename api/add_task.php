@@ -25,7 +25,7 @@
     while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
         $out = [
             'id' => $row['id'],
-            'name' => $_POST['name'],
+            'tempId' => $_POST['tempId'],
         ];
         break;
     }
