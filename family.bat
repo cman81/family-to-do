@@ -1,0 +1,1 @@
+C:\php\php.exe -S 0.0.0.0:8000 -t "D:\Projects\family-to-do" -c "D:\Projects\family-to-do\php.ini"
