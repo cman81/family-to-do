@@ -44,9 +44,13 @@ $(function() {
             element.addEventListener('click', actionHandler);
         });
 
-    $('.existing.task').on('change', '.task-checkbox input', function() {
-        markComplete($(this).val());
-    })
+    $('.existing.task')
+        .on('change', '.task-checkbox input', function() {
+            markComplete($(this).val());
+        })
+        .on('click', '.task-details', function() {
+            window.location.href = 'task_detail.html';
+        });
 
     loadTasks();
 });
@@ -179,7 +183,7 @@ function renderTask(task) {
                     <div class="task-name">${task.name}</div>
                 </div>
                 <div class="form-group task-icons float-right">
-                    ${task.isMore ? pencilIcon() : ''}
+                    ${task.isMore ? pencilSquareIcon() : ''}
                 </div>
             </form>
             </div>
@@ -187,11 +191,11 @@ function renderTask(task) {
     `;
 }
 
-function pencilIcon() {
+function pencilSquareIcon() {
     return `
-        <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
-            <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 00.5.5H4v.5a.5.5 0 00.5.5H5v.5a.5.5 0 00.5.5H6v-1.5a.5.5 0 00-.5-.5H5v-.5a.5.5 0 00-.5-.5H3z" clip-rule="evenodd"/>
+        <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 002.5 15h11a1.5 1.5 0 001.5-1.5v-6a.5.5 0 00-1 0v6a.5.5 0 01-.5.5h-11a.5.5 0 01-.5-.5v-11a.5.5 0 01.5-.5H9a.5.5 0 000-1H2.5A1.5 1.5 0 001 2.5v11z" clip-rule="evenodd"/>
         </svg>
     `;
 }

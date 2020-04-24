@@ -1,16 +1,3 @@
-body,
-html {
-    height: 100%;
-}
-
-body {
-    background-image: url("/northern-va.jpg");
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 .existing.task .row {
     background-color: white;
     opacity: 0.95;
