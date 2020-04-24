@@ -35,6 +35,13 @@ var tasks = [
 ];
 
 $(function() {
+    const myRequest = new Request('api/load_tasks.php');
+    fetch(myRequest)
+        .then(response => response.json())
+        .then(renderTaskList); 
+});
+
+function renderTaskList(tasks) {
     for (let key in tasks) {
         const task = tasks[key];
 
@@ -65,7 +72,7 @@ $(function() {
             `);
         }
     }
-});
+}
 
 function pencilIcon() {
     return `

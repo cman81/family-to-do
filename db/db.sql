@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS `tasks` (
 	`date_created`	INTEGER,
 	`date_due`	INTEGER,
 	`date_completed`	INTEGER,
-	`is_completed`	INTEGER
+	`is_more`	INTEGER NOT NULL DEFAULT 0
 );
 COMMIT;
