@@ -10,7 +10,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-var tasks = [
+var localTasks = [
     {
         id: 1,
         name: 'Cancel Hulu',
@@ -34,15 +34,58 @@ var tasks = [
 
 ];
 
-$(function() {
+
+const ready = function (cb) {
+    // Check if the `document` is loaded completely
+    document.readyState === "loading"
+        ? document.addEventListener("DOMContentLoaded", function (e) {
+            cb();
+        })
+        : cb();
+};
+
+  
+ready(function() {
+    document
+        .querySelectorAll('#actions button')
+        .forEach(element => {
+            element.addEventListener('click', actionHandler);
+        });
+
     const myRequest = new Request('api/load_tasks.php');
     fetch(myRequest)
         .then(response => response.json())
-        .then(renderTaskList); 
-});
+        .then(renderTaskList);
+})
+
+function actionHandler(event) {
+    const operation = event.currentTarget.getAttribute('data-operation');
+
+    if (operation == 'addTask') {
+        const taskName = document.getElementById('add-task').value;
+
+        const myRequest = new Request(
+            'api/add_task.php',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: taskName
+                })
+            }
+        );
+        fetch(myRequest)
+            .then(response => response.json())
+            .then(renderTaskList); 
+        console.log(taskName);
+    }
+}
 
 function renderTaskList(tasks) {
-    for (let key in tasks) {
+    for (let key in localTasks) {
         const task = tasks[key];
 
         const $container = $('.container.existing.task');
