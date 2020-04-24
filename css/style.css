@@ -11,7 +11,7 @@ body {
     background-size: cover;
 }
 
-.row.existing.task {
+.existing.task .row {
     background-color: white;
     opacity: 0.95;
     padding: 2px 12px 0px 16px;
@@ -46,4 +46,27 @@ body {
 .task-checkbox input {
     width: 22px;
     height: 22px;
+}
+.task-name {
+    overflow: hidden;
+    max-height: 1.2rem;
+}
+.existing.task .col {
+    padding-right: 0;
+}
+.form-group.task-details {
+    margin-bottom: 0.4rem;
+    width: 309px;
+}
+.form-group.task-details {
+    margin-bottom: 0.4rem;
+    width: 309px;
+    height: 2.2rem;
+}
+.no-due .task-name {
+    margin-top: 8px;
+}
+.task-icons {
+    margin-top: 0;
+    margin-bottom: 0;
 }
