@@ -11,9 +11,34 @@
     color: #666;
 }
 
-.task-title {
+.task-name {
     padding: 10px;
 }
 .back.icon {
-    margin-top: 8px;
+    margin-top: 1.25rem;
+}
+.main.container .row {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.main.container .due-date.icon {
+    margin-top: 6px;
+}
+.main.container .col.value {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+.main.container .col.task-note.value {
+    padding-bottom: 1rem;
+}
+
+/* @see https://stackoverflow.com/a/21998995 */
+input[type="date"]:before {
+    content: attr(placeholder) !important;
+    color: #aaa;
+    margin-right: 0.5em;
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+    content: "";
 }
