@@ -82,7 +82,7 @@ function markComplete(taskId) {
 }
 
 function loadTasks() {
-    const myRequest = new Request('api/load_tasks.php');
+    const myRequest = new Request('api/load_task_list.php');
     fetch(myRequest)
         .then(response => response.json())
         .then(response => {
