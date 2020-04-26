@@ -50,7 +50,7 @@ function loadTask() {
             throw 'No taskId parameter has been set';
         });
     }
-    localTask.id = urlVars.taskId ?? false;
+    localTask.id = urlVars.taskId || false;
 
     const myRequest = new Request(`api/load_task.php?taskId=${parseInt(localTask.id)}`);
     return fetch(myRequest)

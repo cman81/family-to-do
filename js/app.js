@@ -38,11 +38,46 @@ localtasks = [];
 var tempIdMap = {};
 
 $(function() {
-    document
-        .querySelectorAll('#actions button')
-        .forEach(element => {
-            element.addEventListener('click', actionHandler);
-        });
+    $('#actions').on('click', 'button', function() {
+        const operation = $(this).data('operation');
+        if (!operation) {
+            return;
+        }
+
+        if (operation == 'addTask') {
+            $addTask = document.getElementById('add-task');
+            const taskName = $addTask.value;
+            $addTask.value = '';
+
+            const tempId = generateTempId();
+            const newTask = {
+                id: tempId,
+                name: taskName,
+                tempId: tempId,
+            };
+
+            // insert task client-side
+            localTasks.unshift(newTask);
+            const $container = $('.container.existing.task');
+            $container.prepend(renderTask(newTask));
+
+            // insert task server-side
+            const myRequest = new Request(
+                'api/add_task.php',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newTask)
+                }
+            );
+            fetch(myRequest)
+                .then(response => response.json())
+                .then(updateTempTask); 
+        }
+    })
 
     $('.existing.task')
         .on('change', '.task-checkbox input', function() {
@@ -71,7 +106,7 @@ function markComplete(taskId) {
     playSound('#low-conga');
 
     if (taskId.match('temp')) {
-        taskId = tempIdMap[taskId] ?? false;
+        taskId = tempIdMap[taskId] || false;
     }
 
     if (!taskId) { return; }
@@ -94,39 +129,7 @@ function loadTasks() {
 function actionHandler(event) {
     const operation = event.currentTarget.getAttribute('data-operation');
 
-    if (operation == 'addTask') {
-        $addTask = document.getElementById('add-task');
-        const taskName = $addTask.value;
-        $addTask.value = '';
-
-        const tempId = generateTempId();
-        const newTask = {
-            id: tempId,
-            name: taskName,
-            tempId: tempId,
-        };
-
-        // insert task client-side
-        localTasks.unshift(newTask);
-        const $container = $('.container.existing.task');
-        $container.prepend(renderTask(newTask));
-
-        // insert task server-side
-        const myRequest = new Request(
-            'api/add_task.php',
-            {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newTask)
-            }
-        );
-        fetch(myRequest)
-            .then(response => response.json())
-            .then(updateTempTask); 
-    }
+    if (operation == 'addTask') {}
 }
 
 /**
