@@ -16,7 +16,7 @@
         $db = $GLOBALS['db'];
 
         if (!$changes['id']) { return; }
-        if (!isset($changes['name']) && !isset($changes['dateDue'])) { return; }
+        if (empty(trim($changes['name'])) && !isset($changes['dateDue'])) { return; }
 
         $setClauses = [];
         if ($changes['name']) {
@@ -24,6 +24,9 @@
         }
         if ($changes['dateDue']) {
             $setClauses[] = "date_due = :date_due";
+        }
+        if ($changes['dateDue'] === '') {
+            $setClauses[] = "date_due = NULL";
         }
 
         $sql = "
@@ -36,8 +39,12 @@
 
         // passing values to the parameters
         $stmt->bindValue(':task_id', $changes['id']);
-        $stmt->bindValue(':task_name', $changes['name']);
-        $stmt->bindValue(':date_due', strtotime($changes['dateDue']));
+        if ($changes['name']) {
+            $stmt->bindValue(':task_name', $changes['name']);
+        }
+        if ($changes['dateDue']) {
+            $stmt->bindValue(':date_due', strtotime($changes['dateDue']));
+        }
 
         $stmt->execute();
     }

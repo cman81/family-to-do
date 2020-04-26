@@ -1,6 +1,21 @@
 var localTask = {};
 var taskChanges = {};
 
+// TODO: remove this sample dataset
+var localSubtasks = [
+    {
+        name: 'Boil water',
+    },
+    {
+        name: 'Prep ingredients',
+        isComplete: true
+    },
+    {
+        name: 'Cook!',
+    },
+];
+localSubtasks = [];
+
 $(function() {
     $('#task-name').on('keyup', function() {
         if (localTask.name == $(this).val()) {
@@ -26,6 +41,10 @@ $(function() {
 
         if (operation == 'updateTask') {
             updateTask();
+        }
+
+        if (operation == 'addSubtask') {
+            addSubtask();
         }
     });
 

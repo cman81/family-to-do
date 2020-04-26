@@ -63,3 +63,44 @@ function loadTask() {
             taskChanges.id = response.id;
         });
 }
+
+/**
+ * @see https://stackoverflow.com/a/32649933
+ */
+function generateTempId() {
+    return 'temp-' + (+new Date).toString(36);
+}
+
+function addSubtask() {
+    $addTask = document.getElementById('new-subtask');
+    const subtaskName = $addTask.value;
+    $addTask.value = '';
+
+    const tempId = generateTempId();
+    const newSubtask = {
+        id: tempId,
+        name: subtaskName,
+        tempId: tempId,
+    };
+
+    // insert task client-side
+    localSubtasks.unshift(newSubtask);
+    const $container = $('.container.existing.task');
+    $container.prepend(renderTask(newSubtask));
+
+    // insert task server-side
+    const myRequest = new Request(
+        'api/add_subtask.php',
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newSubtask)
+        }
+    );
+    fetch(myRequest)
+        .then(response => response.json())
+        .then(updateTempTask); 
+}

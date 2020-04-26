@@ -150,13 +150,6 @@ function updateTempTask(response) {
     }
 }
 
-/**
- * @see https://stackoverflow.com/a/32649933
- */
-function generateTempId() {
-    return 'temp-' + (+new Date).toString(36);
-}
-
 function renderTaskList() {
     for (let key in localTasks) {
         const task = localTasks[key];

@@ -20,6 +20,9 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
+.main.container .new-subtask.row {
+    padding-top: 0;
+}
 .main.container .due-date.icon {
     margin-top: 6px;
 }
@@ -44,4 +47,20 @@ input[type="date"]:valid:before {
 }
 .actions {
     line-height: 3em;
+}
+.existing-subtask-value .form-control-plaintext {
+    padding-top: 0;
+}
+.col.existing-subtask-value.checked input {
+    text-decoration: line-through;
+    color: #999;
+}
+.existing-subtask-value .actions.icon {
+    line-height: 1em;
+}
+.existing-subtask-value span.float-left {
+    width: 275px;
+}
+.new-subtask .icon {
+    margin-top: 5px;
 }
