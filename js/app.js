@@ -49,7 +49,7 @@ $(function() {
             markComplete($(this).val());
         })
         .on('click', '.task-details', function() {
-            window.location.href = 'task_detail.html';
+            window.location.href = `task_detail.html?taskId=${$(this).data('taskId')}`;
         });
 
     loadTasks();

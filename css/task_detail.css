@@ -42,3 +42,6 @@ input[type="date"]:focus:before,
 input[type="date"]:valid:before {
     content: "";
 }
+.actions {
+    line-height: 3em;
+}
