@@ -5,7 +5,7 @@
 - Clone a task
 
 ## Doing
-- Edit task details
+- Add subtasks
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -13,3 +13,4 @@
 - Add a task to a task list
 - Mark a task as complete
 - View task details: name, due date, notes
+- Edit task details

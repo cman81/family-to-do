@@ -54,7 +54,7 @@
             (task_id, task_note)
             VALUES
             (:task_id, :task_note)
-            ON CONFLICT(unique_note) DO
+            ON CONFLICT(task_id) DO
             UPDATE
                 SET task_note = :task_note;
         ";

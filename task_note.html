@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/task_detail.css" />
+    <link rel="stylesheet" href="css/task_note.css" />
+    <link rel="icon" href="data:,">
+    <style>
+        body {
+            background-color: #fefebe;
+        }
+    </style>
+    <title>Task Note</title>
+</head>
+
+<body>
+    <div class="container top">
+        <div class="row">
+            <div class="col-auto back icon">
+                <svg class="bi bi-arrow-left-short" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z"
+                        clip-rule="evenodd" />
+                    <path fill-rule="evenodd" d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z"
+                        clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="col task-name">
+                <span class="float-left">
+                    <label for="task-name" class="sr-only">Task Title</label>
+                    <input type="text" class="form-control-lg form-control-plaintext" id="task-name"
+                        value="Task Title Here" readonly="readonly" />
+                </span>
+                <span class="actions float-right">
+                    <button type="button" class="btn btn-success" data-operation="updateTask">Save</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="container main">
+        <div class="row">
+            <div class="col task-note value" contenteditable>
+                <em>Add a note</em>
+            </div>
+        </div>
+    </div>
+
+    <audio id="low-conga">
+        <source src="low-conga.mp3">
+        </source>
+        Your browser isn't invited for super fun audio time.
+    </audio>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/task_note.js"></script>
+</body>
+
+</html>
