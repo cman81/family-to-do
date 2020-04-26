@@ -17,4 +17,8 @@ CREATE TABLE "task_details" (
 	"task_note"	TEXT
 )
 
+CREATE UNIQUE INDEX "unique_note" ON "task_details" (
+	"task_id"
+);
+
 COMMIT;
