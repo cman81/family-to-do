@@ -1,9 +1,14 @@
+var emptyNotePlaceholder = `<em>Add a note</em>`;
 var localTask = {};
 var taskChanges = {};
 
 $(function() {
     $('.task-note.value').on('keyup', function() {
-        const noteValue = scrubNote($(this).html());
+        let noteValue = scrubNote($(this).html());
+        if ($(this).html() == emptyNotePlaceholder) {
+            noteValue = '';
+        }
+
         if (localTask.taskNote == noteValue) {
             delete taskChanges.taskNote;
             return;
@@ -21,7 +26,17 @@ $(function() {
         if (operation == 'updateTask') {
             updateTask();
         }
-    });
+    })
+        .on('click', 'div[contenteditable]', function() {
+            if ($(this).html() == emptyNotePlaceholder) {
+                $(this).html('');
+            }
+        })
+        .on('blur', 'div[contenteditable]', function() {
+            if (getText($(this).html()).trim() == '') {
+                $(this).html(emptyNotePlaceholder);
+            }
+        });
 
     /**
      * Javascript trick for 'paste as plain text` in execCommand
@@ -54,6 +69,11 @@ function scrubNote(htmlSnippet) {
  */
 function getText() {
     let element = document.querySelector('div[contenteditable]');
+
+    if (!element.firstChild) {
+        return element.textContent;
+    }
+
     let firstTag = element.firstChild.nodeName;
     let keyTag = new RegExp(
       firstTag === '#text' ? '<br' : '</' + firstTag,

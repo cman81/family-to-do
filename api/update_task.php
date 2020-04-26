@@ -16,7 +16,7 @@
         $db = $GLOBALS['db'];
 
         if (!$changes['id']) { return; }
-        if (!$changes['name'] && !$changes['dateDue']) { return; }
+        if (!isset($changes['name']) && !isset($changes['dateDue'])) { return; }
 
         $setClauses = [];
         if ($changes['name']) {
@@ -46,7 +46,7 @@
         $db = $GLOBALS['db'];
 
         if (!$changes['id']) { return; }
-        if (!$changes['taskNote']) { return; }
+        if (!isset($changes['taskNote'])) { return; }
 
         // @see https://www.sqlite.org/lang_UPSERT.html
         $sql = "
