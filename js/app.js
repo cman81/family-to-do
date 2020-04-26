@@ -162,8 +162,9 @@ function renderTaskList() {
         $container.append(renderTask(task));
 
         if (task.dateDue) {
+            const overdueClass = (Date.now() / 1000 > task.dateTimestamp) ? 'overdue' : '';
             $container.find('.task-details').last().append(`
-                <div class="task-due">
+                <div class="task-due ${overdueClass}">
                     <small>${task.dateDue}</small>
                 </div>
             `);

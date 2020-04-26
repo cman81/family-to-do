@@ -57,3 +57,6 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+.task-due.overdue {
+    color: red;
+}

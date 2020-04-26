@@ -24,6 +24,7 @@
         $out[] = [
             'id' => $row['task_id'],
             'name' => $row['task_name'],
+            'dateTimestamp' => $row['date_due'],
             'dateDue' => $formatted_date,
             'isMore' => ($row['is_more'] == 1),
         ];
