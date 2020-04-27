@@ -3,7 +3,7 @@
 
     $db = new AppDB();
     $sql = "
-        SELECT t.task_id, t.task_name, t.date_due, td.task_note
+        SELECT t.task_id, t.task_name, t.date_due, td.task_note, td.subtask_set_order
         FROM tasks t
         LEFT OUTER JOIN task_details td ON td.task_Id = t.task_id
         WHERE t.task_id = :task_id
@@ -26,6 +26,7 @@
             'name' => $row['task_name'],
             'dateDue' => $formatted_date,
             'taskNote' => $row['task_note'],
+            'subtaskSetOrder' => $row['subtask_set_order'] ?? FALSE,
         ];
 
         // we are only expecting one result 

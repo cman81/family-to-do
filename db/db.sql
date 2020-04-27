@@ -14,11 +14,15 @@ DROP TABLE IF EXISTS `task_details`;
 CREATE TABLE "task_details" (
 	"detail_id"	INTEGER PRIMARY KEY AUTOINCREMENT,
 	"task_id"	INTEGER,
-	"task_note"	TEXT
+	"task_note"	TEXT,
+	"subtask_set_order" TEXT
 )
 
 CREATE UNIQUE INDEX "unique_note" ON "task_details" (
 	"task_id"
 );
+
+DROP TABLE IF EXISTS `subtasks`;
+CREATE TABLE `subtasks` ( `subtask_id` INTEGER PRIMARY KEY AUTOINCREMENT, `task_id` INTEGER, `subtask_name` INTEGER, `date_completed` INTEGER )
 
 COMMIT;

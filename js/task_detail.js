@@ -45,19 +45,13 @@ $(function() {
 });
 
 function loadSubtasks(response) {
-    // TODO: load this from the database
-    localSubtasks = [
-        {
-            name: 'Boil water',
-        },
-        {
-            name: 'Prep ingredients',
-            isComplete: true
-        },
-        {
-            name: 'Cook!',
-        },
-    ]
+    const myRequest = new Request(`api/load_subtask_list.php?taskId=${localTask.id}`);
+    
+    return fetch(myRequest)
+        .then(response => response.json())
+        .then(response => {
+            localSubtasks = response;
+        });
 }
 
 function renderSubtasks(response) {
