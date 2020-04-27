@@ -48,6 +48,8 @@ input[type="date"]:valid:before {
 .actions {
     line-height: 3em;
 }
+
+/* existing subtasks */
 .existing-subtask-value .form-control-plaintext {
     padding-top: 0;
 }
@@ -61,6 +63,13 @@ input[type="date"]:valid:before {
 .existing-subtask-value span.float-left {
     width: 275px;
 }
+.unchecked svg.bi.bi-check-box {
+    display: none;
+}
+.checked svg.bi.bi-square {
+    display: none;
+}
+
 .new-subtask .icon {
     margin-top: 5px;
 }

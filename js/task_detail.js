@@ -38,6 +38,21 @@ $(function() {
         window.location.href = `task_note.html?taskId=${localTask.id}`;
     });
 
+    $('.main.container').on('click', '.unchecked.icon, .checked.icon', function() {
+        const isChecking = $(this).hasClass('unchecked');
+
+        // update checkbox client-side
+        $(this)
+            .toggleClass('checked')
+            .toggleClass('unchecked');
+        $(this)
+            .next()
+            .toggleClass('checked')
+            .toggleClass('unchecked');
+
+        // TODO: update checkbox server-side
+    });
+
     loadTask()
         .then(renderTask)
         .then(loadSubtasks)
@@ -58,12 +73,13 @@ function renderSubtasks(response) {
     for (let key in localSubtasks) {
         const subtask = localSubtasks[key];
         const checkedCssClass = subtask.isComplete ? 'checked' : 'unchecked';
-        const whichCheckboxIcon = subtask.isComplete ? checkedIcon() : uncheckedIcon();
 
         $('.container.main .row.new-subtask').before(`
-            <div class="row existing-subtasks">
-                <div class="col-auto new-subtask ${checkedCssClass} icon">
-                    ${whichCheckboxIcon}
+            <div class="row existing-subtask">
+                <div class="col-auto existing-subtask ${checkedCssClass} icon">
+                    <!-- hide one of these icons -->
+                    ${checkedIcon()}
+                    ${uncheckedIcon()}
                 </div>
                 <div class="col existing-subtask-value ${checkedCssClass}">
                     <span class="float-left">
