@@ -38,6 +38,9 @@ $(function() {
         window.location.href = `task_note.html?taskId=${localTask.id}`;
     });
 
+    /**
+     * Handler for checking/unchecking subtasks
+     */
     $('.main.container').on('click', '.unchecked.icon, .checked.icon', function() {
         const isChecking = $(this).hasClass('unchecked');
 
@@ -50,7 +53,13 @@ $(function() {
             .toggleClass('checked')
             .toggleClass('unchecked');
 
-        // TODO: update checkbox server-side
+        // update checkbox server-side
+        const queryParams = $.param({
+            subtaskId: $(this).data('subtask-id'),
+            isChecking: (isChecking) ? 1: 0
+        });
+        const myRequest = new Request(`api/complete_subtask.php?${queryParams}`);
+        fetch(myRequest);
     });
 
     loadTask()
@@ -76,7 +85,7 @@ function renderSubtasks(response) {
 
         $('.container.main .row.new-subtask').before(`
             <div class="row existing-subtask">
-                <div class="col-auto existing-subtask ${checkedCssClass} icon">
+                <div class="col-auto existing-subtask ${checkedCssClass} icon" data-subtask-id="${subtask.id}">
                     <!-- hide one of these icons -->
                     ${checkedIcon()}
                     ${uncheckedIcon()}

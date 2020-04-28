@@ -3,7 +3,7 @@
 
     $db = new AppDB();
     $sql = "
-        SELECT subtask_name, date_completed
+        SELECT subtask_id, subtask_name, date_completed
         FROM subtasks
         WHERE task_id = :task_id
         ORDER BY subtask_id
@@ -16,6 +16,7 @@
     $out = [];
     while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
         $out[] = [
+            'id' => $row['subtask_id'],
             'name' => $row['subtask_name'],
             'isComplete' => (!empty($row['date_completed'])),
         ];
