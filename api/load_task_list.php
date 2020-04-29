@@ -9,21 +9,21 @@
         ORDER BY date_created DESC
     ");
 
-    $out = [];
-    foreach ($results as $row) {
-        $formatted_date = false;
-        if ($row['date_due']) {
-            // e.g.: Fri, Apr 4
-            $formatted_date = date("D, M j", $row['date_due']);
-        }
+    exit(json_encode(array_map(
+        function($row) {
+            $formatted_date = false;
+            if ($row['date_due']) {
+                // e.g.: Fri, Apr 4
+                $formatted_date = date("D, M j", $row['date_due']);
+            }
 
-        $out[] = [
-            'id' => $row['task_id'],
-            'name' => $row['task_name'],
-            'dateTimestamp' => $row['date_due'],
-            'dateDue' => $formatted_date,
-            'isMore' => ($row['is_more'] == 1),
-        ];
-    }
-
-    exit(json_encode($out));
+            return [
+                'id' => $row['task_id'],
+                'name' => $row['task_name'],
+                'dateTimestamp' => $row['date_due'],
+                'dateDue' => $formatted_date,
+                'isMore' => ($row['is_more'] == 1),    
+            ];
+        },
+        $results
+    )));

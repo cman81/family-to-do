@@ -1,6 +1,8 @@
 # Kanban
 
 ## To Do
+- Delete a subtask
+- Rename a subtask
 - Delete a task
 - Clone a task
 
