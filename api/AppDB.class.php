@@ -10,4 +10,3 @@ DB::$host = $dbparts['host'] ?? 'localhost';
 DB::$user = $dbparts['user'] ?? 'user';
 DB::$password = $dbparts['pass'] ?? 'password';
 DB::$dbName = $database ?? 'ftd';
-var_dump(DB::$host, DB::$user, DB::$password, DB::$dbName);
