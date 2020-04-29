@@ -19,7 +19,7 @@
     $formatted_date = false;
     if ($row['date_due']) {
         // e.g.: Fri, Apr 4
-        $formatted_date = date("Y-m-d", $row['date_due']);
+        $formatted_date = date("Y-m-d", strtotime($row['date_due']));
     }
 
     exit(json_encode([
