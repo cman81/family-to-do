@@ -1,6 +1,8 @@
 # Kanban
 
 ## To Do
+- Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
+- Fix task name container height so that characters like "g" and "y" are not cutoff
 - Reidentify newly created tasks after they are assigned an ID
 - Delete a task
 - Clone a task
