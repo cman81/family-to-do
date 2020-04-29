@@ -43,6 +43,13 @@ $(function() {
      */
     $('.main.container').on('click', '.unchecked.icon, .checked.icon', function() {
         const isChecking = $(this).hasClass('unchecked');
+        const $container = $(this).parents('.existing-subtask.row');
+
+        const subtaskId = $container.data('subtask-id');
+        if ((typeof subtaskId) != "number") {
+            // we are trying to check a temporary task - abort
+            return;
+        }
 
         // update checkbox client-side
         $(this)
@@ -55,10 +62,25 @@ $(function() {
 
         // update checkbox server-side
         const queryParams = $.param({
-            subtaskId: $(this).data('subtask-id'),
+            subtaskId: subtaskId,
             isChecking: (isChecking) ? 1: 0
         });
         const myRequest = new Request(`api/complete_subtask.php?${queryParams}`);
+        fetch(myRequest);
+    }).on('click', '.delete.icon', function() {
+        const $container = $(this).parents('.existing-subtask.row');
+        
+        const subtaskId = $container.data('subtask-id');
+        if ((typeof subtaskId) != "number") {
+            // we are trying to delete a temporary task - abort
+            return;
+        }
+
+        // delete subtask client-side
+        $container.remove();
+
+        // delete checkbox server-side
+        const myRequest = new Request(`api/delete_subtask.php?subtaskId=${subtaskId}`);
         fetch(myRequest);
     });
 
@@ -83,14 +105,14 @@ function renderSubtasks(response) {
         const subtask = localSubtasks[key];
         const checkedCssClass = subtask.isComplete ? 'checked' : 'unchecked';
 
-        $('.container.main .row.new-subtask').before(renderSubtask(checkedCssClass, subtask, key));
+        $('.container.main .row.new-subtask').before(renderSubtask(checkedCssClass, subtask));
     } 
 }
 
-function renderSubtask(checkedCssClass, subtask, subtaskId) {
+function renderSubtask(checkedCssClass, subtask) {
     return `
-        <div class="row existing-subtask">
-            <div class="col-auto existing-subtask ${checkedCssClass} icon" data-subtask-id="${subtaskId}">
+        <div class="row existing-subtask" data-subtask-id="${subtask.id}">
+            <div class="col-auto existing-subtask ${checkedCssClass} icon">
                 <!-- hide one of these icons -->
                 ${checkedIcon()}
                 ${uncheckedIcon()}
@@ -98,10 +120,10 @@ function renderSubtask(checkedCssClass, subtask, subtaskId) {
             <div class="col existing-subtask-value ${checkedCssClass}">
                 <span class="float-left">
                     <label for="task-name" class="sr-only">Subtask</label>
-                    <input type="text" class="form-control-plaintext" id="subtask-${subtaskId}"
+                    <input type="text" class="form-control-plaintext" id="subtask-${subtask.id}"
                         value="${subtask.name}" />    
                 </span>
-                <span class="actions float-right icon">
+                <span class="delete float-right icon">
                     <svg class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
                         <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>

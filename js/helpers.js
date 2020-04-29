@@ -136,10 +136,8 @@ function reidentifySubtask(oldId, newId) {
     $target = $(`#subtask-${oldId}`);
     $target.attr('id', `subtask-${newId}`);
 
-    // handle the checkbox
+    // handle the container
     $target
         .parents('.existing-subtask.row')
-        .find('.unchecked.icon')
         .attr('data-subtask-id', newId);
-
 }
