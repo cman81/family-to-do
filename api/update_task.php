@@ -1,16 +1,13 @@
 <?php
+    require __DIR__ . '/../vendor/autoload.php';
     require_once "AppDB.class.php";
     $data = file_get_contents("php://input");
     $_POST = json_decode($data, TRUE); // not typical, i know
     
-    $db = new AppDB();
-    $db->busyTimeout(250);
-
     updateTask($_POST);
     updateTaskDetail($_POST);
 
-    $out = TRUE;
-    exit(json_encode($out));
+    exit(json_encode($_POST));
 
     function updateTask($changes) {
         $db = $GLOBALS['db'];
@@ -18,59 +15,34 @@
         if (!$changes['id']) { return; }
         if (empty(trim($changes['name'])) && !isset($changes['dateDue'])) { return; }
 
-        $setClauses = [];
+        $set_clauses = [];
         if ($changes['name']) {
-            $setClauses[] = "task_name = :task_name";
+            $set_clauses['task_name'] = $changes['name'];
         }
         if ($changes['dateDue']) {
-            $setClauses[] = "date_due = :date_due";
+            $set_clauses['date_due'] = new DateTime($changes['dateDue']);
         }
         if ($changes['dateDue'] === '') {
-            $setClauses[] = "date_due = NULL";
+            $set_clauses['date_due'] = NULL;
         }
 
-        $sql = "
-            UPDATE tasks
-            SET " . implode(',', $setClauses) . "
-            WHERE task_id = :task_id
-        ";
-
-        $stmt = $db->prepare($sql);
-
-        // passing values to the parameters
-        $stmt->bindValue(':task_id', $changes['id']);
-        if ($changes['name']) {
-            $stmt->bindValue(':task_name', $changes['name']);
-        }
-        if ($changes['dateDue']) {
-            $stmt->bindValue(':date_due', strtotime($changes['dateDue']));
-        }
-
-        $stmt->execute();
+        DB::update(
+            'tasks',
+            $set_clauses,
+            'task_id = %i',
+            $changes['id']
+        );
     }
 
     function updateTaskDetail($changes) {
-        $db = $GLOBALS['db'];
-
         if (!$changes['id']) { return; }
         if (!isset($changes['taskNote'])) { return; }
 
-        // @see https://www.sqlite.org/lang_UPSERT.html
-        $sql = "
-            INSERT INTO task_details
-            (task_id, task_note)
-            VALUES
-            (:task_id, :task_note)
-            ON CONFLICT(task_id) DO
-            UPDATE
-                SET task_note = :task_note;
-        ";
-
-        $stmt = $db->prepare($sql);
-
-        // passing values to the parameters
-        $stmt->bindValue(':task_id', $changes['id']);
-        $stmt->bindValue(':task_note', $changes['taskNote']);
-
-        $stmt->execute();
+        DB::replace(
+            'task_details',
+            [
+                'task_id' => $changes['id'],
+                'task_note' => $changes['taskNote'],
+            ]
+        );
     }
