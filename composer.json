@@ -8,5 +8,7 @@
             "email": "cmanalansan@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "sergeytsalkov/meekrodb": "^2.3"
+    }
 }
