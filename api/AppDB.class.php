@@ -6,8 +6,8 @@ $url = getenv('JAWSDB_URL');
 $dbparts = parse_url($url);
 $database = ltrim($dbparts['path'],'/');
 
-DB::$hostname = $dbparts['host'] ?? 'localhost';
+DB::$host = $dbparts['host'] ?? 'localhost';
 DB::$user = $dbparts['user'] ?? 'user';
 DB::$password = $dbparts['pass'] ?? 'password';
 DB::$dbName = $database ?? 'ftd';
-var_dump(DB::$hostname, DB::$user, DB::$password, DB::$dbName);
+var_dump(DB::$host, DB::$user, DB::$password, DB::$dbName);
