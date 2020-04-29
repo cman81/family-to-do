@@ -1,0 +1,12 @@
+{
+    "name": "cmanalansan/ftd-composer",
+    "description": "A small to-do list progressive web app",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Manalansan",
+            "email": "cmanalansan@gmail.com"
+        }
+    ],
+    "require": {}
+}
