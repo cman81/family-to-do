@@ -1,20 +1,16 @@
 <?php
+    require __DIR__ . '/../vendor/autoload.php';
     require_once "AppDB.class.php";
 
-    $db = new AppDB();
-    $sql = "
+    $results = DB::query("
         SELECT task_id, task_name, date_due, is_more
         FROM tasks
         WHERE date_completed IS NULL
         ORDER BY date_created DESC
-    ";
-
-    $stmt = $db->prepare($sql);
-
-    $ret = $stmt->execute();
+    ");
 
     $out = [];
-    while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
+    foreach ($results as $row) {
         $formatted_date = false;
         if ($row['date_due']) {
             // e.g.: Fri, Apr 4

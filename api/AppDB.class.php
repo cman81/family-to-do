@@ -1,6 +1,6 @@
 <?php
-    class AppDB extends SQLite3 {
-        function __construct() {
-            $this->open('../db/ftd.db');
-        }
-    }
+require_once __DIR__ . '/../vendor/autoload.php';
+
+DB::$user = 'user';
+DB::$password = 'password';
+DB::$dbName = 'ftd';
