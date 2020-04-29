@@ -1,25 +1,24 @@
 <?php
+    require __DIR__ . '/../vendor/autoload.php';
     require_once "AppDB.class.php";
 
-    $db = new AppDB();
-    $sql = "
-        SELECT subtask_id, subtask_name, date_completed
-        FROM subtasks
-        WHERE task_id = :task_id
-        ORDER BY subtask_id
-    ";
+    $results = DB::query(
+        "
+            SELECT subtask_id, subtask_name, date_completed
+            FROM subtasks
+            WHERE task_id = %i
+            ORDER BY subtask_id
+        ",
+        $_GET['taskId']
+    );
 
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':task_id', $_GET['taskId']);
-    $ret = $stmt->execute();
-
-    $out = [];
-    while ($row = $ret->fetchArray(SQLITE3_ASSOC)) {
-        $out[] = [
-            'id' => $row['subtask_id'],
-            'name' => $row['subtask_name'],
-            'isComplete' => (!empty($row['date_completed'])),
-        ];
-    }
-
-    exit(json_encode($out));
+    exit(json_encode(array_map(
+        function($row) {
+            return [
+                'id' => $row['subtask_id'],
+                'name' => $row['subtask_name'],
+                'isComplete' => (!empty($row['date_completed'])),
+            ];
+        },
+        $results
+    )));
