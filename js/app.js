@@ -33,9 +33,7 @@ var localTasks = [
         isMore: true
     },
 ];
-localtasks = [];
-
-var tempIdMap = {};
+localTasks = [];
 
 $(function() {
     $('#actions').on('click', 'button', function() {
@@ -75,7 +73,9 @@ $(function() {
             );
             fetch(myRequest)
                 .then(response => response.json())
-                .then(updateTempTask); 
+                .then(response => {
+                    updateTempTask(response, localTasks);
+                }); 
         }
     })
 
@@ -130,24 +130,6 @@ function actionHandler(event) {
     const operation = event.currentTarget.getAttribute('data-operation');
 
     if (operation == 'addTask') {}
-}
-
-/**
- * Associate a newly created task with the id that we get from the database.
- */
-function updateTempTask(response) {
-    for (let key in localTasks) {
-        const value = localTasks[key];
-
-        if (!value.tempId) { continue; }
-        if (value.tempId != response.tempId) { continue; }
-
-        localTasks[key].id = response.id;
-        delete localTasks[key].tempId;
-
-        tempIdMap[response.tempId] = response.id;
-        break;
-    }
 }
 
 function renderTaskList() {

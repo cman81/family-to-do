@@ -1,3 +1,5 @@
+var tempIdMap = {};
+
 function updateTask() {
     const myRequest = new Request(
         'api/update_task.php',
@@ -85,8 +87,8 @@ function addSubtask() {
 
     // insert task client-side
     localSubtasks.unshift(newSubtask);
-    const $container = $('.container.existing.task');
-    $container.prepend(renderTask(newSubtask));
+    const $container = $('.existing-subtask.row').last();
+    $container.after(renderSubtask('unchecked', newSubtask, newSubtask.id));
 
     // insert task server-side
     const myRequest = new Request(
@@ -97,10 +99,47 @@ function addSubtask() {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newSubtask)
+            body: JSON.stringify({
+                ...newSubtask,
+                parentTask: localTask.id,
+            })
         }
     );
     fetch(myRequest)
         .then(response => response.json())
-        .then(updateTempTask); 
+        .then(response => {
+            reidentifySubtask(response.tempId, response.id);
+            updateTempTask(response, localSubtasks);
+        }); 
+}
+
+/**
+ * Associate a newly created task with the id that we get from the database.
+ */
+function updateTempTask(response, collection) {
+    for (let key in collection) {
+        const value = collection[key];
+
+        if (!value.tempId) { continue; }
+        if (value.tempId != response.tempId) { continue; }
+
+        collection[key].id = response.id;
+        delete collection[key].tempId;
+
+        tempIdMap[response.tempId] = response.id;
+        break;
+    }
+}
+
+function reidentifySubtask(oldId, newId) {
+    // handle the text input
+    $target = $(`#subtask-${oldId}`);
+    $target.attr('id', `subtask-${newId}`);
+
+    // handle the checkbox
+    $target
+        .parents('.existing-subtask.row')
+        .find('.unchecked.icon')
+        .attr('data-subtask-id', newId);
+
 }

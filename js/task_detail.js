@@ -83,29 +83,33 @@ function renderSubtasks(response) {
         const subtask = localSubtasks[key];
         const checkedCssClass = subtask.isComplete ? 'checked' : 'unchecked';
 
-        $('.container.main .row.new-subtask').before(`
-            <div class="row existing-subtask">
-                <div class="col-auto existing-subtask ${checkedCssClass} icon" data-subtask-id="${subtask.id}">
-                    <!-- hide one of these icons -->
-                    ${checkedIcon()}
-                    ${uncheckedIcon()}
-                </div>
-                <div class="col existing-subtask-value ${checkedCssClass}">
-                    <span class="float-left">
-                        <label for="task-name" class="sr-only">Subtask</label>
-                        <input type="text" class="form-control-plaintext" id="subtask-${key}"
-                            value="${subtask.name}" />    
-                    </span>
-                    <span class="actions float-right icon">
-                        <svg class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
-                            <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
-                        </svg>
-                    </span>
-                </div>
-            </div>
-        `);
+        $('.container.main .row.new-subtask').before(renderSubtask(checkedCssClass, subtask, key));
     } 
+}
+
+function renderSubtask(checkedCssClass, subtask, subtaskId) {
+    return `
+        <div class="row existing-subtask">
+            <div class="col-auto existing-subtask ${checkedCssClass} icon" data-subtask-id="${subtaskId}">
+                <!-- hide one of these icons -->
+                ${checkedIcon()}
+                ${uncheckedIcon()}
+            </div>
+            <div class="col existing-subtask-value ${checkedCssClass}">
+                <span class="float-left">
+                    <label for="task-name" class="sr-only">Subtask</label>
+                    <input type="text" class="form-control-plaintext" id="subtask-${subtaskId}"
+                        value="${subtask.name}" />    
+                </span>
+                <span class="actions float-right icon">
+                    <svg class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
+                    </svg>
+                </span>
+            </div>
+        </div>
+    `;
 }
 
 function uncheckedIcon() {
