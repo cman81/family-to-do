@@ -38,10 +38,8 @@ $(function() {
         window.location.href = `task_note.html?taskId=${localTask.id}`;
     });
 
-    /**
-     * Handler for checking/unchecking subtasks
-     */
     $('.main.container').on('click', '.unchecked.icon, .checked.icon', function() {
+        // Handler for checking/unchecking subtasks
         const isChecking = $(this).hasClass('unchecked');
         const $container = $(this).parents('.existing-subtask.row');
 
@@ -68,6 +66,7 @@ $(function() {
         const myRequest = new Request(`api/complete_subtask.php?${queryParams}`);
         fetch(myRequest);
     }).on('click', '.delete.icon', function() {
+        // Handler for deleting subtasks
         const $container = $(this).parents('.existing-subtask.row');
         
         const subtaskId = $container.data('subtask-id');
@@ -81,6 +80,42 @@ $(function() {
 
         // delete checkbox server-side
         const myRequest = new Request(`api/delete_subtask.php?subtaskId=${subtaskId}`);
+        fetch(myRequest);
+    }).on('change', '.existing-subtask input:text', function() {
+        // Handler for renaming subtasks
+        const $container = $(this).parents('.existing-subtask.row');
+        
+        const subtaskId = $container.data('subtask-id');
+        if ((typeof subtaskId) != "number") {
+            // we are trying to rename a temporary task - abort
+            return;
+        }
+
+        // rename subtask client-side
+        let thisSubtask;
+        for (let key in localSubtasks) {
+            const value = localSubtasks[key];
+            if (value.id != subtaskId) { continue; }
+
+            localSubtasks[key].name = $(this).val();
+            thisSubtask = value;
+        }
+
+        if (!thisSubtask) { return; }
+
+        // rename subtask server-side
+        const myRequest = new Request(
+            'api/update_subtask.php',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(thisSubtask)
+            }
+        );
+    
         fetch(myRequest);
     });
 

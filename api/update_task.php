@@ -10,8 +10,6 @@
     exit(json_encode($_POST));
 
     function updateTask($changes) {
-        $db = $GLOBALS['db'];
-
         if (!$changes['id']) { return; }
         if (empty(trim($changes['name'])) && !isset($changes['dateDue'])) { return; }
 
