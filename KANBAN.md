@@ -2,6 +2,11 @@
 
 ## To Do
 - Reidentify newly created tasks after they are assigned an ID
+- Save due date to the DB on 'change' event
+- Create multiple lists
+- Have user profiles
+- Allow/restrict list access, e.g.: shared, private
+- Move a task to another list
 - Delete a task
 - Clone a task
 
