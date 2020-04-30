@@ -2,6 +2,7 @@
 
 ## To Do
 - Reidentify newly created tasks after they are assigned an ID
+- Fix bug where "Jan 1" is showing on the task list instead of the actual Due Date
 - Save due date to the DB on 'change' event
 - Create multiple lists
 - Have user profiles
