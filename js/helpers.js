@@ -141,3 +141,14 @@ function reidentifySubtask(oldId, newId) {
         .parents('.existing-subtask.row')
         .attr('data-subtask-id', newId);
 }
+
+function reidentifyTask(oldId, newId) {
+    // handle the container
+    $target = $(`#task-${oldId}`);
+    $target.attr('id', `task-${newId}`);
+
+    // handle the text input
+    $target
+        .find('.task-details')
+        .attr('data-task-id', newId);
+}

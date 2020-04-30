@@ -12,7 +12,6 @@
 - Clone a task
 
 ## Doing
-- Reidentify newly created tasks after they are assigned an ID
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -25,3 +24,4 @@
 - Delete a subtask
 - Rename a subtask
 - Save due date to the DB on 'change' event
+- Reidentify newly created tasks after they are assigned an ID

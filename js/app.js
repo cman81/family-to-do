@@ -74,6 +74,7 @@ $(function() {
             fetch(myRequest)
                 .then(response => response.json())
                 .then(response => {
+                    reidentifyTask(response.tempId, response.id);
                     updateTempTask(response, localTasks);
                 }); 
         }
