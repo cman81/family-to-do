@@ -1,7 +1,6 @@
 # Kanban
 
 ## To Do
-- Reidentify newly created tasks after they are assigned an ID
 - Fix bug where "Jan 1" is showing on the task list instead of the actual Due Date
 - Fix task name container height so that characters like "g" and "y" are not cutoff
 - Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
@@ -13,7 +12,7 @@
 - Clone a task
 
 ## Doing
-- Save due date to the DB on 'change' event
+- Reidentify newly created tasks after they are assigned an ID
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -25,3 +24,4 @@
 - Add subtasks
 - Delete a subtask
 - Rename a subtask
+- Save due date to the DB on 'change' event

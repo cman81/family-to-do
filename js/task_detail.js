@@ -14,9 +14,11 @@ $(function() {
     $('#due-date').on('change', function() {
         if (localTask.dateDue == $(this).val()) {
             delete taskChanges.dateDue;
-            return;
+        } else {
+            taskChanges.dateDue = $(this).val();
         }
-        taskChanges.dateDue = $(this).val();
+
+        updateTask();
     });
 
     $('body').on('click', 'button', function() {
