@@ -122,7 +122,7 @@ $(function() {
     });
 
     loadTask()
-        .then(renderTask)
+        .then(renderTaskDetails)
         .then(loadSubtasks)
         .then(renderSubtasks);
 });

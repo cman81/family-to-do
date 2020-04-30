@@ -14,7 +14,7 @@
             $formatted_date = false;
             if ($row['date_due']) {
                 // e.g.: Fri, Apr 4
-                $formatted_date = date("D, M j", $row['date_due']);
+                $formatted_date = date("D, M j", strtotime($row['date_due']));
             }
 
             return [

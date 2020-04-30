@@ -34,7 +34,7 @@ function getUrlVars()
     return vars;
 }
 
-function renderTask(result)
+function renderTaskDetails(result)
 {
     $('#task-name').val(localTask.name);
     if (localTask.dateDue) {
