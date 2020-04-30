@@ -1,12 +1,14 @@
 # Kanban
 
 ## To Do
+- Mark a task "is_more" if it contains a note or subtasks
 - Create multiple lists
 - Have user profiles
 - Allow/restrict list access, e.g.: shared, private
 - Fix task name container height so that characters like "g" and "y" are not cutoff
 - Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
 - Move a task to another list
+- Prevent empty tasks and subtasks from being created
 - Delete a task
 - Clone a task
 
