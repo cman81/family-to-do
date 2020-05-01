@@ -1,8 +1,6 @@
 # Kanban
 
 ## To Do
-- Fix bug: when adding a subtask, console says "renderTask is not defined"
-- Mark a task "is_more" if it contains a note or subtasks
 - Create multiple lists
 - Have user profiles
 - Allow/restrict list access, e.g.: shared, private
@@ -14,7 +12,7 @@
 - Clone a task
 
 ## Doing
-- Fix bug: when editing a task note, console says "renderTask is not defined"
+- Mark a task "is_more" if it contains a note or subtasks
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -32,3 +30,5 @@
 - Respawn task details
 - Respawn subtasks
 - Recurring tasks
+- Fix bug: when editing a task note, console says "renderTask is not defined"
+- Fix bug: when adding a subtask, console says "renderTask is not defined"

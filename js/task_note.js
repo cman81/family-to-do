@@ -54,7 +54,7 @@ $(function() {
     });
 
     loadTask()
-        .then(renderTask)
+        .then(renderTaskDetails)
         .then(setupBackButton);
 });
 
