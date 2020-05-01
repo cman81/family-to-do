@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="css/task_detail.css" />
     <link rel="stylesheet" href="css/task_respawn.css" />
     <link rel="icon" href="data:,">
+    <style>
+        body { background-color: #330033; }
+    </style>
     <title>Respawn task</title>
 </head>
 
@@ -28,11 +31,9 @@
                         clip-rule="evenodd" />
                 </svg>
             </div>
-            <div class="col task-name">
-                <span class="float-left">
-                    <label for="task-name" class="sr-only">Task Title</label>
-                    <input type="text" class="form-control-lg form-control-plaintext" id="task-name"
-                        value="Task Title Here" readonly="readonly" />
+            <div class="col heading">
+                <span class="float-left h5">
+                    Repeat this task
                 </span>
                 <span class="actions float-right">
                     <button type="button" class="btn btn-success" data-operation="updateTask">Save</button>
@@ -42,7 +43,44 @@
     </div>
     <div class="container main">
         <div class="row">
-            <div class="col task-note value" contenteditable><em>Add a note</em></div>
+            <div class="col">
+                <div class="form-check">
+                    <input class="form-check-input" name="respawn" type="radio" value="never" id="never">
+                    <label class="form-check-label" for="never">
+                      Never
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="respawn" type="radio" value="daily" id="daily">
+                    <label class="form-check-label" for="daily">
+                      Daily
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="respawn" type="radio" value="weekly" id="weekly">
+                    <label class="form-check-label" for="weekly">
+                      Weekly
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="respawn" type="radio" value="monthly" id="monthly">
+                    <label class="form-check-label" for="monthly">
+                      Monthly
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="respawn" type="radio" value="yearly" id="yearly">
+                    <label class="form-check-label" for="yearly">
+                      Yearly
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="respawn" type="radio" value="custom" id="custom">
+                    <label for="customString">Custom...</label>
+                    <input type="text" class="form-control" id="customString" aria-describedby="customStringHelp">
+                    <small id="customStringHelp" class="form-text">e.g.: 3 days</small>
+                </div>
+            </div>
         </div>
     </div>
 

@@ -4,9 +4,29 @@
     -moz-box-shadow:    1px 1px 2px 2px #666;  /* Firefox 3.5 - 3.6 */
     box-shadow:         1px 1px 2px 2px #666;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
-.top.container .row {
-    background-color: #654321;
+.main.container .row {
+    color: #ccc;
+    padding: 10px;
 }
-.top.container #task-name, .top.container svg {
-    color: #ddd;
+.heading {
+    padding: 10px;
+}
+.top.container .h5 {
+    margin-top: 0.6rem;
+    font-weight: normal;
+}
+.form-check {
+    padding: 1.25rem;
+}
+small#customStringHelp {
+    color: #999;
+}
+input#customString {
+    background-color: #333;
+    color: #6666ff;
+}
+input#customString {
+    background-color: #333;
+    color: #aaa;
+    border-color: #666;
 }
