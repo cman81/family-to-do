@@ -13,7 +13,7 @@ function updateTask() {
         }
     );
 
-    fetch(myRequest);
+    return fetch(myRequest);
 }
 
 /**

@@ -28,9 +28,17 @@ function reactivateRadioTrigger(result) {
 function updateRespawn() {
     if ($(this).val() != 'custom') {
         $('#customString').val('');
+        taskChanges.respawn = $(this).val();
     }
 
     if ($(this).val() == 'custom' && $('#customString').val().trim() == '') { return; }
+
+    updateTask()
+        .then(backToDetails);
+}
+
+function backToDetails(result) {    
+    window.location.href = `task_detail.html?taskId=${localTask.id}`;
 }
 
 function renderRepeat(result) {

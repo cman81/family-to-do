@@ -10,8 +10,7 @@
     exit(json_encode($_POST));
 
     function updateTask($changes) {
-        if (!$changes['id']) { return; }
-        if (empty(trim($changes['name'])) && !isset($changes['dateDue'])) { return; }
+        if (empty(validate_task($changes))) { return; } 
 
         $set_clauses = [];
         if ($changes['name']) {
@@ -23,6 +22,12 @@
         if ($changes['dateDue'] === '') {
             $set_clauses['date_due'] = NULL;
         }
+        if ($changes['respawn']) {
+            $set_clauses['respawn'] = $changes['respawn'];
+            if ($changes['respawn'] == 'never') {
+                $set_clauses['respawn'] = NULL;
+            }
+        }
 
         DB::update(
             'tasks',
@@ -30,6 +35,12 @@
             'task_id = %i',
             $changes['id']
         );
+    }
+
+    function validate_task($changes) {
+        if (!$changes['id']) { return FALSE; }
+        if ($changes['respawn']) { return TRUE; }
+        if (empty(trim($changes['name'])) && !isset($changes['dateDue'])) { return FALSE; }
     }
 
     function updateTaskDetail($changes) {
