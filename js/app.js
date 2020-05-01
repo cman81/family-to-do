@@ -113,8 +113,24 @@ function markComplete(taskId) {
     if (!taskId) { return; }
 
     // mark complete server-side
-    const myRequest = new Request(`api/complete_task.php?taskId=${taskId}`);
+    const thisTask = getLocalTask(taskId);
+
+    const queryParams = $.param({
+        taskId: taskId,
+        dateDue: thisTask.dateTimestamp,
+        respawn: thisTask.respawn,
+    });
+    const myRequest = new Request(`api/complete_task.php?${queryParams}`);
     fetch(myRequest);
+}
+
+function getLocalTask(taskId) {
+    const matchingTasks = localTasks.filter(task => task.id == taskId);
+    if (!matchingTasks) {
+        return {};
+    }
+
+    return matchingTasks[0];
 }
 
 function loadTasks() {

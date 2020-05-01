@@ -41,6 +41,8 @@
         if (!$changes['id']) { return FALSE; }
         if ($changes['respawn']) { return TRUE; }
         if (empty(trim($changes['name'])) && !isset($changes['dateDue'])) { return FALSE; }
+        
+        return TRUE;
     }
 
     function updateTaskDetail($changes) {
