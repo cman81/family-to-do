@@ -1,6 +1,7 @@
 # Kanban
 
 ## To Do
+- Fix bug: when editing a task, console says "renderTask is not defined"
 - Mark a task "is_more" if it contains a note or subtasks
 - Create multiple lists
 - Have user profiles
