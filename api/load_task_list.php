@@ -2,12 +2,18 @@
     require __DIR__ . '/../vendor/autoload.php';
     require_once "AppDB.class.php";
 
-    $results = DB::query("
-        SELECT t.task_id, t.task_name, t.date_due, t.respawn
-        FROM tasks t
-        WHERE t.date_completed IS NULL
-        ORDER BY t.date_created DESC
-    ");
+    $results = DB::query(
+        "
+            SELECT task_id, task_name, date_due, respawn
+            FROM tasks
+            WHERE date_completed IS NULL
+            AND task_group_id = %i
+            ORDER BY date_created DESC
+        ",
+        $_GET['groupId']
+    );
+
+    if (empty($results)) { exit(json_encode([])); }
 
     $is_more_map = build_map($results);
     $out = array_map(
