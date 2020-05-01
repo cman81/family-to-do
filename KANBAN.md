@@ -1,7 +1,8 @@
 # Kanban
 
 ## To Do
-- Fix bug: when editing a task, console says "renderTask is not defined"
+- Fix bug: when editing a task note, console says "renderTask is not defined"
+- Fix bug: when adding a subtask, console says "renderTask is not defined"
 - Mark a task "is_more" if it contains a note or subtasks
 - Create multiple lists
 - Have user profiles
@@ -15,8 +16,6 @@
 
 ## Doing
 - Recurring tasks
-- Respawn task details
-- Respawn subtasks
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -31,3 +30,5 @@
 - Save due date to the DB on 'change' event
 - Reidentify newly created tasks after they are assigned an ID
 - Fix bug where "Jan 1" is showing on the task list instead of the actual Due Date
+- Respawn task details
+- Respawn subtasks

@@ -22,8 +22,63 @@
         exit(json_encode($_GET));
     }
 
+    try {
+        respawn_details($_GET['taskId'], $new_task['id']);
+    } catch (Exception $ex) {
+        DB::rollback();
+        exit(json_encode($ex));
+    }
+
+    try {
+        respawn_subtasks($_GET['taskId'], $new_task['id']);
+    } catch (Exception $ex) {
+        DB::rollback();
+        exit(json_encode($ex));
+    }
+
     DB::commit();
     exit(json_encode($new_task));
+
+    function respawn_subtasks($source_task_id, $target_task_id) {
+        $subtask_names = DB::queryFirstColumn(
+            "
+                SELECT subtask_name
+                FROM subtasks
+                WHERE task_id = %i
+            ",
+            $source_task_id
+        );
+
+        foreach ($subtask_names as $subtask_name) {
+            DB::insert(
+                'subtasks',
+                [
+                    'task_id' => $target_task_id,
+                    'subtask_name' => $subtask_name,
+                ]
+            );
+        }
+    }
+
+    function respawn_details($source_task_id, $target_task_id) {
+        $row = DB::queryFirstRow(
+            "
+                SELECT task_note, subtask_set_order
+                FROM task_details
+                WHERE task_id = %i
+            ",
+            $source_task_id
+        );
+
+        DB::insert(
+            'task_details',
+            [
+                'task_id' => $target_task_id,
+                'task_note' => $row['task_note'],
+                'subtask_set_order' => $row['subtask_set_order']
+            ],
+        );
+    }
 
     function respawn($completed_task) {
         // Spawn a new task based on the one we just completed
