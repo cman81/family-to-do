@@ -2,14 +2,40 @@ var localTask = {};
 var taskChanges = {};
 
 $(function() {
+    $('#customString').on('change', function() {
+        if (!$(this).val().trim()) { return; }
+
+        taskChanges.respawn = $(this).val();
+        $('#custom').trigger('click');
+    });
+
+    $('input:radio').on('click', updateRespawn);
+
     loadTask()
+        .then(deactivateRadioTrigger)
         .then(renderRepeat)
+        .then(reactivateRadioTrigger)
         .then(setupBackButton);
 });
 
+function deactivateRadioTrigger(result) {
+    $('input:radio').off('click');
+}
+function reactivateRadioTrigger(result) {
+    $('input:radio').on('click', updateRespawn);
+}
+
+function updateRespawn() {
+    if ($(this).val() != 'custom') {
+        $('#customString').val('');
+    }
+
+    if ($(this).val() == 'custom' && $('#customString').val().trim() == '') { return; }
+}
+
 function renderRepeat(result) {
     if (!localTask.respawn) {
-        $('#never').attr('checked', true);
+        $('#never').trigger('click');
         return;
     }
 
@@ -18,12 +44,12 @@ function renderRepeat(result) {
         const value = commonValues[key];
 
         if (localTask.respawn == value) {
-            $(`#${value}`).attr('checked', true);
+            $(`#${value}`).trigger('click');
             return;
         }
     }
 
-    $('#custom').attr('checked', true);
+    $('#custom').trigger('click');
     $('#customString').val(localTask.respawn);
 }
 
