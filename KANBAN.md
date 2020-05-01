@@ -1,7 +1,6 @@
 # Kanban
 
 ## To Do
-- Create multiple lists
 - Have user profiles
 - Allow/restrict list access, e.g.: shared, private
 - Fix task name container height so that characters like "g" and "y" are not cutoff
@@ -12,7 +11,7 @@
 - Clone a task
 
 ## Doing
-- Mark a task "is_more" if it contains a note or subtasks
+- Create multiple lists
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -32,3 +31,4 @@
 - Recurring tasks
 - Fix bug: when editing a task note, console says "renderTask is not defined"
 - Fix bug: when adding a subtask, console says "renderTask is not defined"
+- Show an "extra" icon in the task list when details/subtasks exist
