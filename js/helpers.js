@@ -13,6 +13,8 @@ function updateTask() {
         }
     );
 
+    taskChanges = {};
+
     return fetch(myRequest);
 }
 
@@ -42,6 +44,11 @@ function renderTaskDetails(result)
     }
     if (localTask.taskNote) {
         $('.task-note.value').html(localTask.taskNote);
+    }
+    if (localTask.respawn) {
+        let $target = $('.no-respawn');
+        $target.removeClass('no-respawn');
+        $target.find('.float-left').html(`Repeat: ${localTask.respawn}`);
     }
 }
 

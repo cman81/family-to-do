@@ -119,9 +119,21 @@ $(function() {
         );
     
         fetch(myRequest);
-    }).on('click', '.respawn .icon, .respawn .value .float-left', function() {
+    }).on('click', '.respawn .col-auto.icon, .respawn .value .float-left', function() {
         // handler for setting respawn
         window.location.href = `task_respawn.html?taskId=${localTask.id}`;
+    }).on('click', '.respawn .float-right.icon', function() {
+        // handler for removing respawn
+
+        // client-side
+        localTask.respawn = false;
+        taskChanges.respawn = 'never';
+        $container = $('.respawn .value');
+        $container.addClass('no-respawn');
+        $container.find('.float-left').html('Repeat every...?');
+
+        // server-side
+        updateTask();
     });
 
     loadTask()
