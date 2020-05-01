@@ -1,6 +1,8 @@
 # Kanban
 
 ## To Do
+- Add a group
+- Delete a group
 - Have user profiles
 - Allow/restrict list access, e.g.: shared, private
 - Fix task name container height so that characters like "g" and "y" are not cutoff
@@ -11,7 +13,7 @@
 - Clone a task
 
 ## Doing
-- Create multiple lists
+- Create a page of group lists
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
