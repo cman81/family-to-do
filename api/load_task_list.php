@@ -15,7 +15,7 @@
             return [
                 'id' => $row['task_id'],
                 'name' => $row['task_name'],
-                'dateTimestamp' => $row['date_due'] ?? FALSE,
+                'dateTimestamp' => strtotime($row['date_due']) ?? FALSE,
                 'dateDue' => get_formatted_date($row['date_due']),
                 'isMore' => $is_more_map[$row['task_id']],
                 'respawn' => $row['respawn'] ?? FALSE,
