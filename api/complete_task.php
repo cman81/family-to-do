@@ -15,8 +15,14 @@
     if (empty($_GET['dateDue'])) { exit(json_encode($_GET)); }
     if (empty($_GET['respawn'])) { exit(json_encode($_GET)); }
 
+    DB::startTransaction();
     $new_task = respawn($_GET);
-    if (empty($new_task)) { exit(json_encode($_GET)); }
+    if (empty($new_task)) {
+        DB::rollback();
+        exit(json_encode($_GET));
+    }
+
+    DB::commit();
     exit(json_encode($new_task));
 
     function respawn($completed_task) {
