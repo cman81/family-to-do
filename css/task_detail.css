@@ -73,3 +73,9 @@ input[type="date"]:valid:before {
 .new-subtask .icon {
     margin-top: 5px;
 }
+.respawn .value span.float-left {
+    width: 75%;
+}
+.respawn .no-respawn.value span.float-left {
+    color: #aaa;
+}

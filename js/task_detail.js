@@ -119,6 +119,9 @@ $(function() {
         );
     
         fetch(myRequest);
+    }).on('click', '.respawn .icon, .respawn .value .float-left', function() {
+        // handler for setting respawn
+        window.location.href = `task_respawn.html?taskId=${localTask.id}`;
     });
 
     loadTask()
