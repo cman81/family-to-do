@@ -127,5 +127,12 @@
 
         $new_task['id'] = DB::insertId();
 
-        return $new_task;
+        return [
+            'id' => DB::insertId(),
+            'dateDue' => $new_task['date_due']->format("D, M j"),
+            'dateTimestamp' => $new_task['date_due']->getTimestamp(),
+            'isMore' => $new_task['is_more'],
+            'name' => $new_task['task_name'],
+            'respawn' => $new_task['respawn'],
+        ];
     }

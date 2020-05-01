@@ -55,9 +55,7 @@ $(function() {
             };
 
             // insert task client-side
-            localTasks.unshift(newTask);
-            const $container = $('.container.existing.task');
-            $container.prepend(renderTask(newTask));
+            insertTaskClientSide(newTask);
 
             // insert task server-side
             const myRequest = new Request(
@@ -91,6 +89,12 @@ $(function() {
     loadTasks();
 });
 
+function insertTaskClientSide(newTask) {
+    localTasks.unshift(newTask);
+    const $container = $('.container.existing.task');
+    $container.prepend(renderTask(newTask));
+}
+
 function playSound(cssId) {
     const sound = $(cssId)[0];
     if (!sound) {
@@ -121,7 +125,11 @@ function markComplete(taskId) {
         respawn: thisTask.respawn,
     });
     const myRequest = new Request(`api/complete_task.php?${queryParams}`);
-    fetch(myRequest);
+    fetch(myRequest)
+        .then(response => response.json())
+        .then(response => {
+            insertTaskClientSide(response);
+        });
 }
 
 function getLocalTask(taskId) {
@@ -155,20 +163,11 @@ function renderTaskList() {
 
         const $container = $('.container.existing.task');
         $container.append(renderTask(task));
-
-        if (task.dateDue) {
-            const overdueClass = (Date.now() / 1000 > task.dateTimestamp) ? 'overdue' : '';
-            $container.find('.task-details').last().append(`
-                <div class="task-due ${overdueClass}">
-                    <small>${task.dateDue}</small>
-                </div>
-            `);
-        }
     }
 }
 
 function renderTask(task) {
-    return `
+    const $newDiv = $(`
         <div class="row" id="task-${task.id}">
             <div class="col">
             <form class="form-inline">
@@ -184,7 +183,18 @@ function renderTask(task) {
             </form>
             </div>
         </div>
-    `;
+    `);
+
+    if (!task.dateDue) { return $newDiv; }
+
+    const overdueClass = (Date.now() / 1000 > task.dateTimestamp) ? 'overdue' : '';
+    $newDiv.find('.task-details').append(`
+        <div class="task-due ${overdueClass}">
+            <small>${task.dateDue}</small>
+        </div>
+    `);
+
+    return $newDiv;
 }
 
 function pencilSquareIcon() {
