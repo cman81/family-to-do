@@ -14,6 +14,8 @@
 
 ## Doing
 - Recurring tasks
+- Respawn task details
+- Respawn subtasks
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
