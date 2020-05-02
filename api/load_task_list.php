@@ -37,8 +37,7 @@
         if ($today == $date_a) { return -1; }
         if ($today == $date_b) { return 1; }
 
-
-        return $date_a->diff($date_b)->format('%d');
+        return $date_a->diff($date_b)->invert ? 1 : -1;
     });
 
     $is_more_map = build_map($results);
