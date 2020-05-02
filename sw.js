@@ -1,4 +1,4 @@
-var cacheName = 'honeydo-pwa';
+var cacheName = 'honeydo-pwa-v1';
 var filesToCache = [
   '/',
   '/index.html',
