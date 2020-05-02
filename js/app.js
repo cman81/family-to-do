@@ -197,7 +197,8 @@ function renderTask(task) {
 
     if (!task.dateDue) { return $newDiv; }
 
-    const overdueClass = (Date.now() / 1000 > task.dateTimestamp) ? 'overdue' : '';
+    const yesterday = Date.now() - (1000 * 60 * 60 * 24);
+    const overdueClass = (yesterday / 1000 > task.dateTimestamp) ? 'overdue' : '';
     $newDiv.find('.task-details').append(`
         <div class="task-due ${overdueClass}">
             <small>${task.dateDue}</small>

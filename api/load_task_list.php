@@ -8,12 +8,38 @@
             FROM tasks
             WHERE date_completed IS NULL
             AND task_group_id = %i
-            ORDER BY date_created DESC
         ",
         $_GET['groupId']
     );
 
     if (empty($results)) { exit(json_encode([])); }
+
+    /**
+     * Sort the tasks as follows:
+     * - items due today
+     * - overdue items
+     * - items due in the future
+     * - items without a due date
+     */
+    usort($results, function($a, $b) {
+        if (empty($a['date_due'])) { return 1; }
+        if (empty($b['date_due'])) { return -1; }
+
+        $today = new DateTime();
+        $today->setTime(0, 0);
+
+        $date_a = new DateTime($a['date_due']);
+        $date_a->setTime(0, 0);
+
+        $date_b = new DateTime($b['date_due']);
+        $date_b->setTime(0, 0);
+
+        if ($today == $date_a) { return -1; }
+        if ($today == $date_b) { return 1; }
+
+
+        return $date_a->diff($date_b)->format('%d');
+    });
 
     $is_more_map = build_map($results);
     $out = array_map(
