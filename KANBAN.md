@@ -11,6 +11,8 @@
 - Prevent empty tasks and subtasks from being created
 - Delete a task
 - Clone a task
+- Make URLs clickable in task notes
+- Allow for a task group to be subgrouped, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 
 ## Doing
 - Create a page of group lists
