@@ -119,6 +119,7 @@
             'date_due' => new DateTime("@$new_due_date"), // @see https://www.php.net/manual/en/function.date-create.php#76216
             'is_more' => $row['is_more'],
             'respawn' => $completed_task['respawn'],
+'task_group_id' => 1,
         ];
         DB::insert(
             'tasks',
