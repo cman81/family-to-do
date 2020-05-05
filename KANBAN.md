@@ -1,6 +1,7 @@
 # Kanban
 
 ## To Do
+- In the task list, derive group name from the database instead of URL query parameters
 - Add a refresh button to the task list
 - Add a group
 - Delete a group
