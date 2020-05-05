@@ -1,18 +1,18 @@
 # Kanban
 
 ## To Do
+- Have user profiles
+- Allow/restrict list access, e.g.: shared, private
 - In the task list, derive group name from the database instead of URL query parameters
 - Add a refresh button to the task list
 - Add a group
-- Delete a group
-- Have user profiles
-- Allow/restrict list access, e.g.: shared, private
 - Fix task name container height so that characters like "g" and "y" are not cutoff
 - Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
 - Move a task to another list
 - Prevent empty tasks and subtasks from being created
 - Delete a task
 - Clone a task
+- Delete a group
 - Make URLs clickable in task notes
 - Allow for a task group to be subgrouped, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 
