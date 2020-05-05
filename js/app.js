@@ -148,7 +148,7 @@ function getLocalTask(taskId) {
 function loadTasks() {
     let urlVars = getUrlVars();
     if (!urlVars.groupId) {
-        window.location.href = `task_groups.html`;
+        window.location.replace(`task_groups.html`);
     }
 
     const myRequest = new Request(`api/load_tasks.php?groupId=${urlVars.groupId}`);
