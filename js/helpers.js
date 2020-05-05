@@ -96,8 +96,8 @@ function addSubtask() {
 
     // insert task client-side
     localSubtasks.unshift(newSubtask);
-    const $container = $('.existing-subtask.row').last();
-    $container.after(renderSubtask('unchecked', newSubtask, newSubtask.id));
+    const $container = $('.new-subtask.row');
+    $container.before(renderSubtask('unchecked', newSubtask, newSubtask.id));
 
     // insert task server-side
     const myRequest = new Request(

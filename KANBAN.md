@@ -1,9 +1,9 @@
 # Kanban
 
 ## To Do
-- Have user profiles
 - Allow/restrict list access, e.g.: shared, private
 - In the task list, derive group name from the database instead of URL query parameters
+- Allow for tasks to contain file uploads
 - Add a refresh button to the task list
 - Add a group
 - Fix task name container height so that characters like "g" and "y" are not cutoff
@@ -17,7 +17,7 @@
 - Allow for a task group to be subgrouped, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 
 ## Doing
-- Fix bug: The first subtask does not immediately show after creating it 
+- Have user profiles
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -39,3 +39,4 @@
 - Fix bug: when adding a subtask, console says "renderTask is not defined"
 - Show an "extra" icon in the task list when details/subtasks exist
 - Create a page of group lists
+- Fix bug: The first subtask does not immediately show after creating it 
