@@ -148,12 +148,7 @@ function getLocalTask(taskId) {
 function loadTasks() {
     let urlVars = getUrlVars();
     if (!urlVars.groupId) {
-urlVars.groupId = 1; // TODO: remove this hard-coding 
-/*  
-        return new Promise((resolve, reject) => {
-            throw 'No groupId parameter has been set';
-        });
-*/
+        window.location.href = `task_groups.html`;
     }
 
     const myRequest = new Request(`api/load_tasks.php?groupId=${urlVars.groupId}`);
