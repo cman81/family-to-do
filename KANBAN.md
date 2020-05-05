@@ -1,6 +1,7 @@
 # Kanban
 
 ## To Do
+- Add a refresh button to the task list
 - Add a group
 - Delete a group
 - Have user profiles
@@ -15,7 +16,7 @@
 - Allow for a task group to be subgrouped, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 
 ## Doing
-- Create a page of group lists
+- Fix bug: The first subtask does not immediately show after creating it 
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -36,3 +37,4 @@
 - Fix bug: when editing a task note, console says "renderTask is not defined"
 - Fix bug: when adding a subtask, console says "renderTask is not defined"
 - Show an "extra" icon in the task list when details/subtasks exist
+- Create a page of group lists

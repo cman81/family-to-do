@@ -7,7 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/task_groups.css" />
     <title>Family To Do List</title>
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="data:,">
@@ -18,47 +18,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="HoneyDo: The Household To Do App">
     <meta name="description" content="A small to-do list app">
-    <style>
-      body,
-      html {
-          height: 100%;
-      }
-
-      body {
-          background-image: url("/northern-va.jpg");
-          background-attachment: fixed;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-size: cover;
-      }
-    </style>
   </head>
   <body>
-    <div class="bg"></div>
-
-    <!-- Just an image -->
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <img src="/honeydew-icon-192.png" width="30" height="30" alt="">
-      </a>
-      <span class="float-right" id="actions">
-        <button type="button" class="btn btn-success" data-operation="addTask">Done</button>
-      </span>
-    </nav>
-
-    <div class="container new task">
-      <div class="row">
-        <div class="col new task">
-          <div class="form-group">
-            <label for="add-task" class="sr-only">Add a to-do...</label>
-            <input type="text" class="form-control bg-primary text-light" id="add-task" placeholder="Add a to-do">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container existing task">
-
-    </div>
+    <div class="container existing task-groups"><!-- dynamically generated --></div>
 
     <audio id="low-conga">
       <source src="low-conga.mp3">
@@ -72,6 +34,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="js/helpers.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/task_groups.js"></script>
   </body>
 </html>

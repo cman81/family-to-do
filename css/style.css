@@ -60,3 +60,8 @@
 .task-due.overdue {
     color: red;
 }
+.back-icon {
+    font-size: 2em;
+    line-height: 1em;
+    color: #999;
+}

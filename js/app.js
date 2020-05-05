@@ -86,6 +86,10 @@ $(function() {
             window.location.href = `task_detail.html?taskId=${$(this).data('taskId')}`;
         });
 
+    $('.navbar').on('click', '.back-icon', function() {
+        window.location.href = `task_groups.html`;
+    });
+
     loadTasks();
 });
 
@@ -152,7 +156,7 @@ urlVars.groupId = 1; // TODO: remove this hard-coding
 */
     }
 
-    const myRequest = new Request(`api/load_task_list.php?groupId=${urlVars.groupId}`);
+    const myRequest = new Request(`api/load_tasks.php?groupId=${urlVars.groupId}`);
     fetch(myRequest)
         .then(response => response.json())
         .then(response => {
