@@ -1,6 +1,9 @@
 # Kanban
 
 ## To Do
+- Add "Today" smart list
+- Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
+- Add "Next 7 Days" smart list, categorized by day
 - Allow for tasks to contain file uploads
 - Add a refresh button to the task list
 - Add a group
@@ -12,7 +15,7 @@
 - Clone a task
 - Delete a group
 - Make URLs clickable in task notes
-- Allow for a task group to be subgrouped, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
+- Fix bug: When checking a task that does not repeat, 'undefined' appears client-side
 
 ## Doing
 - In the task list, derive group name from the database instead of URL query parameters
