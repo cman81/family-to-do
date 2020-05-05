@@ -10,30 +10,8 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// TODO: remove this sample dataset
-var localTasks = [
-    {
-        id: 1,
-        name: 'Cancel Hulu',
-        dateDue: 'Fri, May 1'
-    },
-    {
-        id: 2,
-        name: '21 Jump Street',
-    },
-    {
-        id: 3,
-        name: 'Pure Chaos in Tabletop Simulator | Hard Mode',
-        isMore: true
-    },
-    {
-        id: 4,
-        name: 'Dollar Store',
-        dateDue: 'Fri, Apr 24',
-        isMore: true
-    },
-];
-localTasks = [];
+var localTasks = [];
+var groupId;
 
 $(function() {
     $('#actions').on('click', 'button', function() {
@@ -152,7 +130,8 @@ function loadTasks() {
         window.location.replace(`task_groups.html`);
     }
 
-    const myRequest = new Request(`api/load_tasks.php?groupId=${urlVars.groupId}`);
+    groupId = urlVars.groupId;
+    const myRequest = new Request(`api/load_tasks.php?groupId=${groupId}`);
     fetch(myRequest)
         .then(response => response.json())
         .then(response => {
