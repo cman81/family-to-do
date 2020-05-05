@@ -38,6 +38,8 @@ function getUrlVars()
 
 function renderTaskDetails(result)
 {
+    $('.back.icon a').attr('href', `index.html?groupId=${localTask.groupId}`);
+
     $('#task-name').val(localTask.name);
     if (localTask.dateDue) {
         $('#due-date').val(localTask.dateDue);

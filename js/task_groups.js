@@ -2,7 +2,8 @@ var localTaskGroups = [];
 
 $(function() {
     $('.existing.task-groups').on('click', '.row', function() {
-        window.location.href = `index.html?groupId=${$(this).data('list-id')}`;
+        const groupName = $(this).find('.label').text();
+        window.location.href = `index.html?groupId=${$(this).data('list-id')}&groupName=${encodeURI(groupName.trim())}`;
     });
 
     loadTaskGroups()

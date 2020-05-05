@@ -11,7 +11,7 @@ if ('serviceWorker' in navigator) {
 }
 
 var localTasks = [];
-var groupId;
+var groupId, groupName;
 
 $(function() {
     $('#actions').on('click', 'button', function() {
@@ -130,7 +130,10 @@ function loadTasks() {
         window.location.replace(`task_groups.html`);
     }
 
-    groupId = urlVars.groupId;
+    groupName = decodeURI(urlVars.groupName);
+    $('.list-title').html(groupName);
+
+    groupId = urlVars.groupId;    
     const myRequest = new Request(`api/load_tasks.php?groupId=${groupId}`);
     fetch(myRequest)
         .then(response => response.json())
