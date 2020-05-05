@@ -52,6 +52,7 @@ $(function() {
                 id: tempId,
                 name: taskName,
                 tempId: tempId,
+                groupId: groupId,
             };
 
             // insert task client-side

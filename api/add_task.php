@@ -9,7 +9,7 @@
         [
             'task_name' => $_POST['name'],
             'date_created' => new DateTime(),
-'task_group_id' => 1,
+            'task_group_id' => $_POST['groupId'],
         ]
     );
 

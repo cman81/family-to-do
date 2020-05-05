@@ -50,6 +50,7 @@
                 'dateDue' => get_formatted_date($row['date_due']),
                 'isMore' => $is_more_map[$row['task_id']],
                 'respawn' => $row['respawn'] ?? FALSE,
+                'groupId' => $_GET['groupId'],
             ];
         },
         $results
