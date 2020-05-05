@@ -55,7 +55,7 @@ function renderTaskDetails(result)
 }
 
 function loadTask() {
-    let urlVars = getUrlVars();
+    const urlVars = getUrlVars();
     if (!urlVars.taskId) {
         return new Promise((resolve, reject) => {
             throw 'No taskId parameter has been set';

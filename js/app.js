@@ -125,7 +125,7 @@ function getLocalTask(taskId) {
 }
 
 function loadTasks() {
-    let urlVars = getUrlVars();
+    const urlVars = getUrlVars();
     if (!urlVars.groupId) {
         window.location.replace(`task_groups.html`);
     }

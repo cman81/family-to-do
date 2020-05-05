@@ -4,12 +4,9 @@
 
     $results = DB::query(
         "
-            SELECT group_id, group_name
-            FROM task_groups
-            WHERE owner_id = %i
-            OR is_public = 1
-        ",
-        $_GET['ownerId']
+            SELECT user_id, username
+            FROM users
+        "
     );
 
     if (empty($results)) { exit(json_encode([])); }
@@ -17,8 +14,8 @@
     $out = array_map(
         function($row){
             return [
-                'id' => $row['group_id'],
-                'name' => $row['group_name'],
+                'id' => $row['user_id'],
+                'name' => $row['username'],
             ];
         },
         $results

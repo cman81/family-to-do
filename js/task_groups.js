@@ -1,10 +1,19 @@
 var localTaskGroups = [];
+var localUsers = [];
+var localUserId;
 
 $(function() {
     $('.existing.task-groups').on('click', '.row', function() {
         const groupName = $(this).find('.label').text();
         window.location.href = `index.html?groupId=${$(this).data('list-id')}&groupName=${encodeURI(groupName.trim())}`;
     });
+
+    loadUsers()
+        .then(response => response.json())
+        .then(response => {
+            localUsers = response;
+            renderUsers();
+        });
 
     loadTaskGroups()
         .then(response => response.json())
@@ -13,6 +22,29 @@ $(function() {
             renderTaskGroups();
         });
 });
+
+function renderUsers() {
+    for(let key in localUsers) {
+        const user = localUsers[key];
+        const activeClass = (user.id == localUserId) ? 'active' : '';
+        const currentTag = (user.id == localUserId) ? '<span class="sr-only">(current)</span>' : '';
+
+        $('.users').append(`
+            <a class="nav-item nav-link ${activeClass}" href="task_groups.html?userId=${user.id}">
+                ${user.name}
+                ${currentTag}
+            </a>
+        `);
+    }
+}
+
+function loadUsers() {
+    const urlVars = getUrlVars();
+    localUserId = urlVars.userId || 1;
+
+    const myRequest = new Request(`api/load_users.php`);
+    return fetch(myRequest)
+}
 
 function renderTaskGroups() {
     for (let key in localTaskGroups) {
@@ -44,6 +76,6 @@ function renderTaskGroups() {
 }
 
 function loadTaskGroups() {
-    const myRequest = new Request(`api/load_task_groups.php`);
+    const myRequest = new Request(`api/load_task_groups.php?ownerId=${localUserId}`);
     return fetch(myRequest)
 }
