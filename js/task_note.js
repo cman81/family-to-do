@@ -36,6 +36,9 @@ $(function() {
             if (getText($(this).html()).trim() == '') {
                 $(this).html(emptyNotePlaceholder);
             }
+        })
+        .on('click', '.back.icon', function() {
+            window.history.back();
         });
 
     /**
@@ -54,8 +57,7 @@ $(function() {
     });
 
     loadTask()
-        .then(renderTaskDetails)
-        .then(setupBackButton);
+        .then(renderTaskDetails);
 });
 
 function scrubNote(htmlSnippet) {
@@ -84,10 +86,4 @@ function getText() {
       .replace(/<[^>]+>/g, (m, i) => (keyTag.test(m) ? '{ß®}' : ''))
       .replace(/{ß®}$/, '');
     return tmp.innerText.replace(/{ß®}/g, '\n');
-}
-
-function setupBackButton(result) {
-    $('.back.icon').on('click', function() {
-        window.location.href = `task_detail.html?taskId=${localTask.id}`;
-    })
 }

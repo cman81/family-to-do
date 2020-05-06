@@ -69,8 +69,30 @@ $(function() {
         window.location.href = `task_groups.html`;
     });
 
+    $('body').on('click', '.back.icon', function() {
+        window.history.back();
+    });
+
+    const urlVars = getUrlVars();
+    if (!urlVars.groupId) {
+        window.location.replace(`task_groups.html`);
+    }
+
+    groupId = urlVars.groupId;    
+    loadGroupMetadata();
     loadTasks();
 });
+
+function loadGroupMetadata() {
+    const myRequest = new Request(`api/load_task_group.php?groupId=${groupId}`);
+
+    fetch(myRequest)
+        .then(response => response.json())
+        .then(response => {
+            groupName = response.name;
+            $('.list-title').html(groupName);        
+        });
+}
 
 function insertTaskClientSide(newTask) {
     localTasks.unshift(newTask);
@@ -125,15 +147,6 @@ function getLocalTask(taskId) {
 }
 
 function loadTasks() {
-    const urlVars = getUrlVars();
-    if (!urlVars.groupId) {
-        window.location.replace(`task_groups.html`);
-    }
-
-    groupName = decodeURI(urlVars.groupName);
-    $('.list-title').html(groupName);
-
-    groupId = urlVars.groupId;    
     const myRequest = new Request(`api/load_tasks.php?groupId=${groupId}`);
     fetch(myRequest)
         .then(response => response.json())

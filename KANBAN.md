@@ -1,7 +1,6 @@
 # Kanban
 
 ## To Do
-- Add "Today" smart list
 - Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 - Add "Next 7 Days" smart list, categorized by day
 - Allow for tasks to contain file uploads
@@ -9,6 +8,7 @@
 - Add a group
 - Fix task name container height so that characters like "g" and "y" are not cutoff
 - Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
+- Handle timezone difference
 - Move a task to another list
 - Prevent empty tasks and subtasks from being created
 - Delete a task
@@ -18,7 +18,7 @@
 - Fix bug: When checking a task that does not repeat, 'undefined' appears client-side
 
 ## Doing
-- In the task list, derive group name from the database instead of URL query parameters
+- Make "Today" smart list
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -43,3 +43,4 @@
 - Fix bug: The first subtask does not immediately show after creating it 
 - Have user profiles
 - Allow/restrict list access, e.g.: shared, private
+- In the task list, derive group name from the database instead of URL query parameters
