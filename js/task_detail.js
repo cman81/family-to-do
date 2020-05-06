@@ -34,7 +34,9 @@ $(function() {
         if (operation == 'addSubtask') {
             addSubtask();
         }
-    });
+    }).on('click', '.back.icon', function() {
+        window.history.back();
+    });;
 
     $('.task-note.row').on('click', function() {
         window.location.href = `task_note.html?taskId=${localTask.id}`;
