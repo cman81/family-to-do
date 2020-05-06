@@ -23,6 +23,9 @@ $(function() {
         if (operation == 'addTask') {
             addTask(); 
         }
+        if (operation == 'refreshTasks') {
+            location.reload();
+        }
     })
 
     $('.existing.task')

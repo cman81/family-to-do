@@ -32,6 +32,8 @@ $(function() {
 function renderUsers() {
     for(let key in localUsers) {
         const user = localUsers[key];
+
+        if (user.id == localUserId) { $('#active-user').html(user.name); }
         const activeClass = (user.id == localUserId) ? 'active' : '';
         const currentTag = (user.id == localUserId) ? '<span class="sr-only">(current)</span>' : '';
 
