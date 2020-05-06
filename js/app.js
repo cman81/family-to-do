@@ -21,39 +21,7 @@ $(function() {
         }
 
         if (operation == 'addTask') {
-            $addTask = document.getElementById('add-task');
-            const taskName = $addTask.value;
-            $addTask.value = '';
-
-            const tempId = generateTempId();
-            const newTask = {
-                id: tempId,
-                name: taskName,
-                tempId: tempId,
-                groupId: groupId,
-            };
-
-            // insert task client-side
-            insertTaskClientSide(newTask);
-
-            // insert task server-side
-            const myRequest = new Request(
-                'api/add_task.php',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(newTask)
-                }
-            );
-            fetch(myRequest)
-                .then(response => response.json())
-                .then(response => {
-                    reidentifyTask(response.tempId, response.id);
-                    updateTempTask(response, localTasks);
-                }); 
+            addTask(); 
         }
     })
 
@@ -74,14 +42,71 @@ $(function() {
     });
 
     const urlVars = getUrlVars();
+    if (urlVars.smart) {
+        loadSmartList(urlVars);
+        return;
+    }
     if (!urlVars.groupId) {
         window.location.replace(`task_groups.html`);
     }
 
-    groupId = urlVars.groupId;    
+    groupId = urlVars.groupId;
     loadGroupMetadata();
     loadTasks();
 });
+
+function loadSmartList(urlVars) {
+    if (urlVars.smart == 'today') {
+        $('.list-title').html('Today');
+
+        $('.new.task.container').remove();
+        $('#actions .add-task').remove();
+
+        const queryParams = $.param({
+            userId: urlVars.userId,
+        });
+        const myRequest = new Request(`api/load_tasks_today.php?${queryParams}`);
+        fetch(myRequest)
+            .then(response => response.json())
+            .then(response => {
+                localTasks = response;
+                renderTaskList();
+            });
+    }    
+}
+
+function addTask() {
+    $addTask = document.getElementById('add-task');
+    const taskName = $addTask.value;
+    $addTask.value = '';
+
+    const tempId = generateTempId();
+    const newTask = {
+        id: tempId,
+        name: taskName,
+        tempId: tempId,
+        groupId: groupId,
+    };
+
+    // insert task client-side
+    insertTaskClientSide(newTask);
+
+    // insert task server-side
+    const myRequest = new Request('api/add_task.php', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newTask)
+    });
+    fetch(myRequest)
+        .then(response => response.json())
+        .then(response => {
+            reidentifyTask(response.tempId, response.id);
+            updateTempTask(response, localTasks);
+        });
+}
 
 function loadGroupMetadata() {
     const myRequest = new Request(`api/load_task_group.php?groupId=${groupId}`);

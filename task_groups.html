@@ -28,11 +28,27 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="navbar-nav users"><!-- dynamicallt generated --></div>
+        <div class="navbar-nav users"><!-- dynamically generated --></div>
       </div>
     </nav>
 
-    <div class="container existing task-groups"><!-- dynamically generated --></div>
+    <div class="container existing task-groups">
+      <div class="row smart" data-smart="today">
+          <div class="col-1 icon">
+            <svg class="bi bi-clock" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm8-7A8 8 0 110 8a8 8 0 0116 0z" clip-rule="evenodd"/>
+              <path fill-rule="evenodd" d="M7.5 3a.5.5 0 01.5.5v5.21l3.248 1.856a.5.5 0 01-.496.868l-3.5-2A.5.5 0 017 9V3.5a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <div class="col-8 label">
+              Today
+          </div>
+          <div class="col-3 list-size float-right">
+              <small><!-- TODO: add an aggregate list count --></small>
+          </div>
+      </div>
+      <!-- dynamically generated -->
+    </div>
 
     <audio id="low-conga">
       <source src="low-conga.mp3">

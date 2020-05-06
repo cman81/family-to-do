@@ -3,14 +3,23 @@
     require_once "AppDB.class.php";
     require_once "helpers.php";
 
+    $tomorrow = new DateTime('tomorrow');
+    $tomorrow->setTime(0, 0);
+
     $results = DB::query(
         "
-            SELECT task_id, task_name, date_due, respawn
-            FROM tasks
-            WHERE date_completed IS NULL
-            AND task_group_id = %i
+            SELECT t.task_id, t.task_name, t.date_due, t.respawn 
+            FROM tasks t
+            INNER JOIN task_groups tg ON tg.group_id = t.task_group_id 
+            WHERE (
+                tg.owner_id = %i
+                OR is_public = 1
+            )
+            AND date_due IS NOT NULL
+            AND date_due < %t
         ",
-        $_GET['groupId']
+        $_GET['userId'],
+        $tomorrow
     );
 
     if (empty($results)) { exit(json_encode([])); }

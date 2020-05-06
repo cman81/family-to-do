@@ -1,7 +1,6 @@
 # Kanban
 
 ## To Do
-- Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 - Add "Next 7 Days" smart list, categorized by day
 - Allow for tasks to contain file uploads
 - Add a refresh button to the task list
@@ -18,7 +17,7 @@
 - Fix bug: When checking a task that does not repeat, 'undefined' appears client-side
 
 ## Doing
-- Make "Today" smart list
+- Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -44,3 +43,4 @@
 - Have user profiles
 - Allow/restrict list access, e.g.: shared, private
 - In the task list, derive group name from the database instead of URL query parameters
+- Make "Today" smart list
