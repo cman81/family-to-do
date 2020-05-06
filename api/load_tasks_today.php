@@ -15,6 +15,7 @@
                 tg.owner_id = %i
                 OR is_public = 1
             )
+            AND date_completed IS NULL
             AND date_due IS NOT NULL
             AND date_due < %t
         ",
