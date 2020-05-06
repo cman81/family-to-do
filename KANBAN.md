@@ -34,7 +34,7 @@
 - Fix bug where "Jan 1" is showing on the task list instead of the actual Due Date
 - Respawn task details
 - Respawn subtasks
-- Recurring tasks
+- Repeating tasks
 - Fix bug: when editing a task note, console says "renderTask is not defined"
 - Fix bug: when adding a subtask, console says "renderTask is not defined"
 - Show an "extra" icon in the task list when details/subtasks exist
@@ -44,3 +44,4 @@
 - Allow/restrict list access, e.g.: shared, private
 - In the task list, derive group name from the database instead of URL query parameters
 - Make "Today" smart list
+- On the task list, indicate which tasks are repeating
