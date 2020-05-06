@@ -24,7 +24,7 @@ $(function() {
             addTask(); 
         }
         if (operation == 'refreshTasks') {
-            location.reload();
+            window.location.href = window.location.href; // @see https://stackoverflow.com/a/7955985
         }
     })
 
