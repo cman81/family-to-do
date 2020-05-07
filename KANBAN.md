@@ -17,7 +17,7 @@
 - Allow for tasks to contain file uploads
 
 ## Doing
-- Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
+- Add a task to a category
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -48,3 +48,4 @@
 - Add a refresh button to the task list
 - Rework current lists to have 1 default category. Put all tasks in that category
 - Render a task category
+- Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart

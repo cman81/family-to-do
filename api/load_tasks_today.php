@@ -38,17 +38,17 @@
                 'isMore' => $is_more_map[$row['task_id']],
                 'respawn' => $row['respawn'] ?? FALSE,
                 'groupId' => $row['group_id'],
-                'groupName' => $row['group_name'],
+                'categoryName' => $row['group_name'],
             ];
         },
         $results
     );
 
-    $groups = [];
+    $categories = [];
     foreach ($out as $value) {
-        $key = $value['groupName'];
-        if (empty($groups[$key])) { $groups[$key] = []; }
-        $groups[$key][] = $value;
+        $key = $value['categoryName'];
+        if (empty($categories[$key])) { $categories[$key] = []; }
+        $categories[$key][] = $value;
     }
 
-    exit(json_encode($groups));
+    exit(json_encode($categories));

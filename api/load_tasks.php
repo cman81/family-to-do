@@ -5,7 +5,7 @@
 
     $results = DB::query(
         "
-            SELECT task_id, task_name, date_due, respawn
+            SELECT task_id, task_name, date_due, respawn, category
             FROM tasks
             WHERE date_completed IS NULL
             AND task_group_id = %i
@@ -28,11 +28,25 @@
                 'isMore' => $is_more_map[$row['task_id']],
                 'respawn' => $row['respawn'] ?? FALSE,
                 'groupId' => $_GET['groupId'],
+                'categoryName' => $row['category'],
             ];
         },
         $results
     );
 
-    exit(json_encode([
-        'Default Category' => $out
-    ]));
+    $categories = [];
+    foreach ($out as $value) {
+        $key = $value['categoryName'] ?? 'Default Category';
+        $key = strtolower($key);
+        if (empty($categories[$key])) { $categories[$key] = []; }
+        $categories[$key][] = $value;
+    }
+
+    // move 'Default Category' to the end of the array
+    // @see https://stackoverflow.com/a/2359684
+    $key = strtolower('Default Category');
+    $default_category = $categories[$key];
+    unset($categories[$key]);
+    $categories[$key] = $default_category;
+
+    exit(json_encode($categories));
