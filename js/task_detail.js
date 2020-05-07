@@ -38,11 +38,12 @@ $(function() {
             addSubtask();
         }
     }).on('click', '.back.icon', function() {
-        window.location.replace(document.referrer); // @see https://stackoverflow.com/a/18519238
+        // TODO: figure out how to send the user back to a smart list
+        window.location.assign(`index.html?groupId=${localTask.groupId}`);
     });;
 
     $('.task-note.row').on('click', function() {
-        window.location.href = `task_note.html?taskId=${localTask.id}`;
+        window.location.assign(`task_note.html?taskId=${localTask.id}`);
     });
 
     $('.main.container').on('click', '.unchecked.icon, .checked.icon', function() {
@@ -126,7 +127,7 @@ $(function() {
         fetch(myRequest);
     }).on('click', '.respawn .col-auto.icon, .respawn .value .float-left', function() {
         // handler for setting respawn
-        window.location.href = `task_respawn.html?taskId=${localTask.id}`;
+        window.location.assign(`task_respawn.html?taskId=${localTask.id}`);
     }).on('click', '.respawn .float-right.icon', function() {
         // handler for removing respawn
 

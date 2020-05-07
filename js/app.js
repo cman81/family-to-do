@@ -33,15 +33,11 @@ $(function() {
             markComplete($(this).val());
         })
         .on('click', '.task-details', function() {
-            window.location.href = `task_detail.html?taskId=${$(this).data('taskId')}`;
+            window.location.assign(`task_detail.html?taskId=${$(this).data('taskId')}`);
         });
 
     $('.navbar').on('click', '.back-icon', function() {
-        window.location.href = `task_groups.html`;
-    });
-
-    $('body').on('click', '.back.icon', function() {
-        window.location.replace(document.referrer); // @see https://stackoverflow.com/a/18519238
+        window.location.assign(`task_groups.html`);
     });
 
     const urlVars = getUrlVars();

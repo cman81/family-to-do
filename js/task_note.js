@@ -38,7 +38,7 @@ $(function() {
             }
         })
         .on('click', '.back.icon', function() {
-            window.location.replace(document.referrer); // @see https://stackoverflow.com/a/18519238
+            window.location.assign(`task_detail.html?taskId=${localTask.id}`);
         });
 
     /**

@@ -38,7 +38,7 @@ function updateRespawn() {
 }
 
 function backToDetails(result) {    
-    window.location.href = `task_detail.html?taskId=${localTask.id}`;
+    window.location.assign(`task_detail.html?taskId=${localTask.id}`);
 }
 
 function renderRepeat(result) {
@@ -63,6 +63,6 @@ function renderRepeat(result) {
 
 function setupBackButton(result) {
     $('.back.icon').on('click', function() {
-        window.location.href = `task_detail.html?taskId=${localTask.id}`;
+        window.location.assign(`task_detail.html?taskId=${localTask.id}`);
     })
 }

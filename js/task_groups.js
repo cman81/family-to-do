@@ -4,14 +4,14 @@ var localUserId;
 
 $(function() {
     $('.existing.task-groups').on('click', '.row:not(.smart)', function() {
-        window.location.href = `index.html?groupId=${$(this).data('list-id')}`;
+        window.location.assign(`index.html?groupId=${$(this).data('list-id')}`);
     }).on('click', '.smart.row', function() {
         const queryParams = $.param({
             userId: localUserId,
             smart: $(this).data('smart'),
         });
 
-        window.location.href = `index.html?${queryParams}`;
+        window.location.assign(`index.html?${queryParams}`);
     });
 
     loadUsers()
