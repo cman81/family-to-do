@@ -41,7 +41,7 @@ $(function() {
     });
 
     $('body').on('click', '.back.icon', function() {
-        window.history.back();
+        window.location.replace(document.referrer); // @see https://stackoverflow.com/a/18519238
     });
 
     const urlVars = getUrlVars();
@@ -191,12 +191,28 @@ function actionHandler(event) {
 }
 
 function renderTaskList() {
-    for (let key in localTasks) {
-        const task = localTasks[key];
+    const $container = $('.container.existing.task');
 
-        const $container = $('.container.existing.task');
-        $container.append(renderTask(task));
+    for (let category in localTasks) {
+        const categoryTasks = localTasks[category];
+        $container.append(renderCategoryHeader(category));
+
+        for (let key in categoryTasks) {
+            const task = categoryTasks[key];
+    
+            $container.append(renderTask(task));
+        }
     }
+}
+
+function renderCategoryHeader(category) {
+    const $newDiv = $(`
+        <div class="row category">
+            <div class="col"><small>${category}</small></div>
+        </div>
+    `);
+
+    return $newDiv;
 }
 
 function renderTask(task) {

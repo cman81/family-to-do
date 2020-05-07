@@ -33,4 +33,6 @@
         $results
     );
 
-    exit(json_encode($out));
+    exit(json_encode([
+        'Default Category' => $out
+    ]));

@@ -2,8 +2,7 @@
 
 ## To Do
 - Add "Next 7 Days" smart list, categorized by day
-- Allow for tasks to contain file uploads
-- Add a refresh button to the task list
+- Reorder lists somehow
 - Add a group
 - Fix task name container height so that characters like "g" and "y" are not cutoff
 - Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
@@ -15,6 +14,7 @@
 - Delete a group
 - Make URLs clickable in task notes
 - Fix bug: When checking a task that does not repeat, 'undefined' appears client-side
+- Allow for tasks to contain file uploads
 
 ## Doing
 - Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
@@ -45,3 +45,6 @@
 - In the task list, derive group name from the database instead of URL query parameters
 - Make "Today" smart list
 - On the task list, indicate which tasks are repeating
+- Add a refresh button to the task list
+- Rework current lists to have 1 default category. Put all tasks in that category
+- Render a task category

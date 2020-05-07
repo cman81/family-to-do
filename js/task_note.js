@@ -38,7 +38,7 @@ $(function() {
             }
         })
         .on('click', '.back.icon', function() {
-            window.history.back();
+            window.location.replace(document.referrer); // @see https://stackoverflow.com/a/18519238
         });
 
     /**
