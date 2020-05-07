@@ -4,7 +4,7 @@
 
     $row = DB::queryFirstRow(
         "
-            SELECT t.task_id, t.task_name, t.date_due, td.task_note, td.subtask_set_order, t.respawn, t.task_group_id
+            SELECT t.task_id, t.task_name, t.date_due, td.task_note, td.subtask_set_order, t.respawn, t.task_group_id, t.category
             FROM tasks t
             LEFT OUTER JOIN task_details td ON td.task_Id = t.task_id
             WHERE t.task_id = %i
@@ -30,4 +30,5 @@
         'subtaskSetOrder' => $row['subtask_set_order'] ?? FALSE,
         'respawn' => $row['respawn'] ?? FALSE,
         'groupId' => $row['task_group_id'],
+        'category' => $row['category'],
     ]));

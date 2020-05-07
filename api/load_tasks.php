@@ -42,6 +42,8 @@
         $categories[$key][] = $value;
     }
 
+    ksort($categories);
+
     // move 'Default Category' to the end of the array
     // @see https://stackoverflow.com/a/2359684
     $key = strtolower('Default Category');

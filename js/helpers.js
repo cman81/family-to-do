@@ -45,6 +45,9 @@ function renderTaskDetails(result)
     if (localTask.taskNote) {
         $('.task-note.value').html(localTask.taskNote);
     }
+    if (localTask.category) {
+        $('#category').val(localTask.category);
+    }
     if (localTask.respawn) {
         let $target = $('.no-respawn');
         $target.removeClass('no-respawn');

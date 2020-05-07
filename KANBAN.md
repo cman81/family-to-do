@@ -1,6 +1,7 @@
 # Kanban
 
 ## To Do
+- Fix bug: checked off tasks reappear when refreshing the task list
 - Add "Next 7 Days" smart list, categorized by day
 - Reorder lists somehow
 - Add a group
@@ -15,9 +16,10 @@
 - Make URLs clickable in task notes
 - Fix bug: When checking a task that does not repeat, 'undefined' appears client-side
 - Allow for tasks to contain file uploads
+- Swipe to delete
 
 ## Doing
-- Add a task to a category
+- Fix bug: when going to task respawn or task note, we can't get back to our task list!
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -49,3 +51,4 @@
 - Rework current lists to have 1 default category. Put all tasks in that category
 - Render a task category
 - Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
+- Add a task to a category

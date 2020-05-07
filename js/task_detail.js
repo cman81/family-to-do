@@ -10,6 +10,9 @@ $(function() {
         }
         taskChanges.name = $(this).val();
     });
+    $('#category').on('keyup', function() {
+        taskChanges.category = $(this).val();
+    });
 
     $('#due-date').on('change', function() {
         if (localTask.dateDue == $(this).val()) {
@@ -133,6 +136,15 @@ $(function() {
         $container = $('.respawn .value');
         $container.addClass('no-respawn');
         $container.find('.float-left').html('Repeat every...?');
+
+        // server-side
+        updateTask();
+    }).on('click', '.category.row .float-right.icon', function() {
+        // handler for removing category
+
+        // client-side
+        $('#category').val('');
+        taskChanges.category = '';
 
         // server-side
         updateTask();

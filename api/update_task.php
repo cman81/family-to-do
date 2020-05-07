@@ -28,7 +28,10 @@
                 $set_clauses['respawn'] = NULL;
             }
         }
-
+        if (isset($changes['category'])) {
+            if (empty($changes['category'])) { $changes['category'] = NULL; }
+            $set_clauses['category'] = $changes['category'];
+        }
         DB::update(
             'tasks',
             $set_clauses,
@@ -40,6 +43,7 @@
     function validate_task($changes) {
         if (!$changes['id']) { return FALSE; }
         if ($changes['respawn']) { return TRUE; }
+        if (isset($changes['category'])) { return TRUE; }
         if (empty(trim($changes['name'])) && !isset($changes['dateDue'])) { return FALSE; }
         
         return TRUE;
