@@ -168,7 +168,15 @@ function markComplete(taskId) {
 }
 
 function getLocalTask(taskId) {
-    const matchingTasks = localTasks.filter(task => task.id == taskId);
+    let flattenedTasks = [];
+    for (let category in localTasks) {
+        const categoryTasks = localTasks[category];
+        for (let key in categoryTasks) {
+            flattenedTasks.push(categoryTasks[key]);
+        }
+    }
+
+    const matchingTasks = flattenedTasks.filter(task => task.id == taskId);
     if (!matchingTasks) {
         return {};
     }

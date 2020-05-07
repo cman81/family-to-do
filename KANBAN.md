@@ -1,7 +1,6 @@
 # Kanban
 
 ## To Do
-- Add "Next 7 Days" smart list, categorized by day
 - Reorder lists somehow
 - Add a group
 - Fix task name container height so that characters like "g" and "y" are not cutoff
@@ -18,7 +17,7 @@
 - Swipe to delete
 
 ## Doing
-- Fix bug: checked off tasks reappear when refreshing the task list
+- Add "Next 7 Days" smart list, categorized by day
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -52,3 +51,4 @@
 - Allow for a task group to be categorized, e.g.: Groceries => Harris Teeter, Aldi, H-Mart
 - Add a task to a category
 - Fix bug: when going to task respawn or task note, we can't get back to our task list!
+- Fix bug: checked off tasks reappear when refreshing the task list
