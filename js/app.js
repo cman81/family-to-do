@@ -214,7 +214,7 @@ function renderTaskList() {
         }
     }
 
-    if (Object.keys(localTasks).length == 1) {
+    if (Object.keys(localTasks).length == 1 && Object.keys(localTasks)[0] == 'default category') {
         $('.category.row').hide();
     }
 }
