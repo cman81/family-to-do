@@ -123,9 +123,15 @@ function loadGroupMetadata() {
 }
 
 function insertTaskClientSide(newTask) {
-    localTasks.unshift(newTask);
-    const $container = $('.container.existing.task');
-    $container.prepend(renderTask(newTask));
+const category = 'default category';
+    localTasks[category].unshift(newTask);
+
+    $('.category.row').each(function() {
+        if ($(this).data('category') == category) {
+            $(this).after(renderTask(newTask));
+            return false;
+        }
+    });
 }
 
 function playSound(cssId) {
@@ -203,6 +209,10 @@ function renderTaskList() {
             $container.append(renderTask(task));
         }
     }
+
+    if (Object.keys(localTasks).length == 1) {
+        $('.category.row').hide();
+    }
 }
 
 function renderCategoryHeader(category) {
@@ -211,6 +221,7 @@ function renderCategoryHeader(category) {
             <div class="col"><small>${category}</small></div>
         </div>
     `);
+    $newDiv.data('category', category);
 
     return $newDiv;
 }
