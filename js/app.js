@@ -120,8 +120,12 @@ function loadGroupMetadata() {
 
 function insertTaskClientSide(newTask) {
 const category = 'default category';
-localTasks[category] = localTasks[category] || [];
-    
+
+    if (!localTasks[category]) {
+        localTasks[category] = [];
+        $('.existing.task.container').append(renderCategoryHeader(category));
+    }
+
     localTasks[category].unshift(newTask);
 
     $('.category.row').each(function() {
