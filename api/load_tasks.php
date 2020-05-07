@@ -13,7 +13,7 @@
         $_GET['groupId']
     );
 
-    if (empty($results)) { exit(json_encode([])); }
+    if (empty($results)) { exit(json_encode(['default category' => []])); }
 
     usort($results, "task_list_sort");
 
