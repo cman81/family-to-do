@@ -101,7 +101,7 @@
 
         $row = DB::queryFirstRow(
             "
-                SELECT task_name, is_more, date_due
+                SELECT task_name, is_more, date_due, task_group_id, category
                 FROM tasks
                 WHERE task_id = %i
             ",
@@ -119,7 +119,8 @@
             'date_due' => new DateTime("@$new_due_date"), // @see https://www.php.net/manual/en/function.date-create.php#76216
             'is_more' => $row['is_more'],
             'respawn' => $completed_task['respawn'],
-'task_group_id' => 1,
+            'task_group_id' => $row['task_group_id'],
+            'category' => $row['category'],
         ];
         DB::insert(
             'tasks',
