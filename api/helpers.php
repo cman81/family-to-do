@@ -8,8 +8,8 @@
  * - items without a due date
  */
 function task_list_sort($a, $b) {
-    if (empty($a['date_due'])) { return 1; }
-    if (empty($b['date_due'])) { return -1; }
+    if (empty($a['date_due'])) { return -1; }
+    if (empty($b['date_due'])) { return 1; }
 
     $today = new DateTime();
     $today->setTime(0, 0);
@@ -28,6 +28,9 @@ function task_list_sort($a, $b) {
 
 /**
  * Build a mapping array to determine which tasks have notes/subtasks, and which ones do not.
+ * 
+ * @param array $results
+ * @return array
  */
 function build_map($results) {
     $extra_results = DB::query(
@@ -61,4 +64,30 @@ function has_extra_details($row) {
     if (!empty($row['subtask_name'])) { return TRUE; }
 
     return FALSE;
+}
+
+/**
+ * @param int $user_id
+ * @param DateTime $last_due_date
+ * @return array
+ */
+function get_future_tasks($user_id, $last_due_date) {
+    $last_due_date->setTime(11, 59);
+    
+    return DB::query(
+        "
+            SELECT t.task_id, t.task_name, t.date_due, t.respawn, tg.group_id, tg.group_name
+            FROM tasks t
+            INNER JOIN task_groups tg ON tg.group_id = t.task_group_id 
+            WHERE (
+                tg.owner_id = %i
+                OR is_public = 1
+            )
+            AND date_completed IS NULL
+            AND date_due IS NOT NULL
+            AND date_due < %t
+        ",
+        $user_id,
+        $last_due_date
+    );
 }

@@ -12,12 +12,12 @@
 - Clone a task
 - Delete a group
 - Make URLs clickable in task notes
-- Fix bug: When checking a task that does not repeat, 'undefined' appears client-side
+- Fix bug: When checking a task that does not repeat, a new 'undefined' task appears client-side
 - Allow for tasks to contain file uploads
 - Swipe to delete
 
 ## Doing
-- Add "Next 7 Days" smart list, categorized by day
+- Pass a breadcrumb around so that 'back' button goes to the proper list / user 
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -52,3 +52,5 @@
 - Add a task to a category
 - Fix bug: when going to task respawn or task note, we can't get back to our task list!
 - Fix bug: checked off tasks reappear when refreshing the task list
+- Add "Next 7 Days" smart list, categorized by day
+- Show tasks with no due date at the top of task lists

@@ -55,23 +55,32 @@ $(function() {
 });
 
 function loadSmartList(urlVars) {
+    let apiEndpoint;
     if (urlVars.smart == 'today') {
         $('.list-title').html('Today');
+        apiEndpoint = 'api/load_tasks_today.php';
+    }
 
-        $('.new.task.container').remove();
-        $('#actions .add-task').remove();
+    if (urlVars.smart == 'next7days') {
+        $('.list-title').html('Next 7 Days');
+        apiEndpoint = 'api/load_tasks_7day.php';
+    }
 
-        const queryParams = $.param({
-            userId: urlVars.userId,
+    if (!apiEndpoint) { return; }
+
+    $('.new.task.container').remove();
+    $('#actions .add-task').remove();
+
+    const queryParams = $.param({
+        userId: urlVars.userId,
+    });
+    const myRequest = new Request(`${apiEndpoint}?${queryParams}`);
+    fetch(myRequest)
+        .then(response => response.json())
+        .then(response => {
+            localTasks = response;
+            renderTaskList();
         });
-        const myRequest = new Request(`api/load_tasks_today.php?${queryParams}`);
-        fetch(myRequest)
-            .then(response => response.json())
-            .then(response => {
-                localTasks = response;
-                renderTaskList();
-            });
-    }    
 }
 
 function addTask() {
