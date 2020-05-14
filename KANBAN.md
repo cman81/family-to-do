@@ -1,6 +1,7 @@
 # Kanban
 
 ## To Do
+- Pass around a breadcrumb so that the back button on Task Details can go back to the proper Task List (e.g.: Smart List)
 - Reorder lists somehow
 - Add a group
 - Fix task name container height so that characters like "g" and "y" are not cutoff
