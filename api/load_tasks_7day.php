@@ -3,7 +3,7 @@
     require_once "AppDB.class.php";
     require_once "helpers.php";
 
-    $next_week = new DateTime('+7 days');
+    $next_week = new DateTime('+6 days 20 hours'); // 7 days minus 4 hours to account for eastern timezone
     $results = get_future_tasks($_GET['userId'], $next_week);
 
     if (empty($results)) { exit(json_encode([])); }

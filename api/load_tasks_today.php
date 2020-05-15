@@ -3,7 +3,7 @@
     require_once "AppDB.class.php";
     require_once "helpers.php";
 
-    $today = new DateTime();
+    $today = new DateTime('-4 hours'); // account for eastern timezone
     $results = get_future_tasks($_GET['userId'], $today);
 
     if (empty($results)) { exit(json_encode([])); }

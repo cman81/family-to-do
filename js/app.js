@@ -274,8 +274,8 @@ function renderTask(task) {
 
     if (!task.dateDue) { return $newDiv; }
 
-    const yesterday = Date.now() - (1000 * 60 * 60 * 24);
-    const overdueClass = (yesterday / 1000 > task.dateTimestamp) ? 'overdue' : '';
+    const yesterday = Math.floor((Date.now() - (1000 * 60 * 60 * 24)) / 1000) - (new Date().getTimezoneOffset() * 60);
+    const overdueClass = (yesterday > task.dateTimestamp) ? 'overdue' : '';
     $newDiv.find('.task-details').append(`
         <div class="task-due ${overdueClass}">
             <small>${task.dateDue} ${task.respawn ? repeatingIcon() : ''}</small>

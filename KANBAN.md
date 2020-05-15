@@ -1,7 +1,6 @@
 # Kanban
 
 ## To Do
-- Reorder lists somehow
 - Add a group
 - Fix task name container height so that characters like "g" and "y" are not cutoff
 - Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
@@ -16,7 +15,7 @@
 - Swipe to delete
 
 ## Doing
-- Handle timezone difference
+- Reorder tasks in a given list
 
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
@@ -54,3 +53,4 @@
 - Add "Next 7 Days" smart list, categorized by day
 - Show tasks with no due date at the top of task lists
 - Pass around a breadcrumb so that the back button on Task Details can go back to the proper Task List (e.g.: Smart List)
+- Handle timezone difference
