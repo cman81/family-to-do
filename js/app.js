@@ -33,12 +33,18 @@ $(function() {
             markComplete($(this).val());
         })
         .on('click', '.task-details', function() {
-            window.location.assign(`task_detail.html?taskId=${$(this).data('taskId')}`);
+            breadcrumbAndGo(`task_detail.html?taskId=${$(this).data('taskId')}`);
         });
 
     $('.navbar').on('click', '.back-icon', function() {
-        window.location.assign(`task_groups.html`);
+        if (!localBreadcrumb['task_groups.html']) {
+            window.location.assign(`task_groups.html`);
+        }
+
+        window.location.assign(`task_groups.html?userId=${localBreadcrumb['task_groups.html'].userId}`);
     });
+
+    loadBreadcrumb();
 
     const urlVars = getUrlVars();
     if (urlVars.smart) {
@@ -47,6 +53,8 @@ $(function() {
     }
     if (!urlVars.groupId) {
         window.location.replace(`task_groups.html`);
+
+        // TODO: make task_groups.html the homepage, rename index.html to tasks.html
     }
 
     groupId = urlVars.groupId;
@@ -123,7 +131,7 @@ function loadGroupMetadata() {
         .then(response => response.json())
         .then(response => {
             groupName = response.name;
-            $('.list-title').html(groupName);        
+            $('.list-title').html(groupName);
         });
 }
 

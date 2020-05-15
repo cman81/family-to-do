@@ -1,4 +1,5 @@
 var tempIdMap = {};
+var localBreadcrumb = {};
 
 function updateTask() {
     const myRequest = new Request(
@@ -161,4 +162,65 @@ function reidentifyTask(oldId, newId) {
     $target
         .find('.task-details')
         .attr('data-task-id', newId);
+}
+
+function loadBreadcrumb() {
+    const myRequest = new Request(`api/getset_breadcrumb.php`);
+
+    fetch(myRequest)
+        .then(response => response.json())
+        .then(response => {
+            localBreadcrumb = response;
+        });
+}
+
+/**
+ * @see https://www.developerdrive.com/turning-the-querystring-into-a-json-object-using-javascript/
+ */
+function QueryStringToJSON() {            
+    var pairs = location.search.slice(1).split('&');
+    
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+
+    return JSON.parse(JSON.stringify(result));
+}
+
+/**
+ * @see https://stackoverflow.com/questions/13317276/jquery-to-get-the-name-of-the-current-html-file
+ */
+function currentHtmlFile() {
+    return document.location.pathname.match(/[^\/]+$/)[0];
+}
+
+function breadcrumbAndGo(desinationUrl) {
+    let breadcrumbItem = {
+        htmlPage: currentHtmlFile(),
+        params: QueryStringToJSON(),
+    };
+
+    if (!location.search) {
+        breadcrumbItem.params = {
+            userId: 1,
+        };
+    }
+
+    const myRequest = new Request(
+        'api/getset_breadcrumb.php',
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(breadcrumbItem)
+        }
+    );
+    fetch(myRequest)
+        .then(function() {
+            window.location.assign(desinationUrl);
+        });
 }

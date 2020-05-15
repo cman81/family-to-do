@@ -38,8 +38,12 @@ $(function() {
             addSubtask();
         }
     }).on('click', '.back.icon', function() {
-        // TODO: figure out how to send the user back to a smart list
-        window.location.assign(`index.html?groupId=${localTask.groupId}`);
+        if (!localBreadcrumb['index.html']) {
+            window.location.assign(`index.html?groupId=${localTask.groupId}`);
+        }
+
+        const queryParams = $.param(localBreadcrumb['index.html']);
+        window.location.assign(`index.html?${queryParams}`);
     });;
 
     $('.task-note.row').on('click', function() {
@@ -151,6 +155,7 @@ $(function() {
         updateTask();
     });
 
+    loadBreadcrumb();
     loadTask()
         .then(renderTaskDetails)
         .then(loadSubtasks)
