@@ -60,7 +60,99 @@ $(function() {
     groupId = urlVars.groupId;
     loadGroupMetadata();
     loadTasks();
+    makeItemsSortable();
 });
+
+/**
+ * @see https://github.com/Shopify/draggable/tree/master/src/Sortable
+ */
+function makeItemsSortable() {
+    // @see https://github.com/Shopify/draggable/issues/295#issuecomment-448518952
+    const sortable = new Sortable.default(document.querySelectorAll('.existing.task.container'), {
+        draggable: '.existing.task .row:not(.category)'
+    });
+    
+    sortable.on('sortable:stop', (event) => {
+        const $targetElement = $(event.data.dragEvent.data.source);
+
+        // update the category we are in
+        const taskId = $targetElement.find('.task-details').data('taskId');
+        const oldCategory = getTaskCategory(taskId);
+        const newCategory = $targetElement.prevAll().filter('.category').first().text().trim();
+
+        if (oldCategory != newCategory) {
+            updateTaskCategory(taskId, newCategory, oldCategory);
+        }
+
+        // update the weights of all items in the list
+        let taskOrder = [];
+        const $taskDetails = $('.task-details');
+        $taskDetails.each(function(idx) {
+            if ($(this).parents('.row').hasClass('draggable--original')) {
+                return;
+            }
+            if ($(this).parents('.row').hasClass('draggable-mirror')) {
+                return;
+            }
+
+            const key = $(this).data('task-id');
+            taskOrder.push(key);
+        });
+
+        updateTaskOrder(taskOrder);
+    });
+}
+
+function updateTaskCategory(taskId, newCategory, oldCategory) {
+    // client-side
+    for (let key in localTasks[oldCategory]) {
+        const value = localTasks[oldCategory][key];
+
+        if (value.id != taskId) { continue; }
+        
+        localTasks[newCategory].push(value);
+        break;
+    }
+    localTasks[oldCategory] = localTasks[oldCategory].filter(item => item.id != taskId);
+
+    // server-side
+    let taskChanges = {};
+    taskChanges.id = taskId;
+    taskChanges.category = newCategory;
+    updateTask(taskChanges);
+}
+
+function updateTaskOrder(taskOrder) {
+    const myRequest = new Request(
+        'api/update_task_order.php',
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                taskOrder: taskOrder,
+                groupId: groupId,
+            })
+        }
+    );
+
+    return fetch(myRequest);
+}
+
+function getTaskCategory(taskId) {
+    for (let key in localTasks) {
+        const value = localTasks[key];
+
+        const filteredArray = value.filter(item => item.id == taskId);
+        if (filteredArray.length) {
+            return key;
+        }
+    }
+
+    return '';
+}
 
 function loadSmartList(urlVars) {
     let apiEndpoint;

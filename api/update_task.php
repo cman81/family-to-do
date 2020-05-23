@@ -4,12 +4,12 @@
     $data = file_get_contents("php://input");
     $_POST = json_decode($data, TRUE); // not typical, i know
     
-    updateTask($_POST);
-    updateTaskDetail($_POST);
+    update_task($_POST);
+    update_task_detail($_POST);
 
     exit(json_encode($_POST));
 
-    function updateTask($changes) {
+    function update_task($changes) {
         if (empty(validate_task($changes))) { return; } 
 
         $set_clauses = [];
@@ -49,7 +49,7 @@
         return TRUE;
     }
 
-    function updateTaskDetail($changes) {
+    function update_task_detail($changes) {
         if (!$changes['id']) { return; }
         if (!isset($changes['taskNote'])) { return; }
 

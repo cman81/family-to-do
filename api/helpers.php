@@ -2,23 +2,33 @@
 
 /**
  * Sort the tasks as follows:
+ * - items without a due date
  * - items due today
  * - overdue items
  * - items due in the future
- * - items without a due date
+ * 
+ * When items have the same due date, use 'weight' if applicable
  */
 function task_list_sort($a, $b) {
-    if (empty($a['date_due'])) { return -1; }
-    if (empty($b['date_due'])) { return 1; }
-
-    $today = new DateTime();
-    $today->setTime(0, 0);
+    // @see https://codular.com/php-7-4-null-coalescing-assignment-operator
+    $a['date_due'] ??= "@0";
+    $b['date_due'] ??= "@0";
 
     $date_a = new DateTime($a['date_due']);
     $date_a->setTime(0, 0);
 
     $date_b = new DateTime($b['date_due']);
     $date_b->setTime(0, 0);
+
+    if ($date_a == $date_b) {
+        $a['weight'] ??= -1;
+        $b['weight'] ??= -1;
+
+        return $a['weight'] - $b['weight'];
+    }
+
+    $today = new DateTime("-4 hours"); // account for eastern timezone
+    $today->setTime(0, 0);
 
     if ($today == $date_a) { return -1; }
     if ($today == $date_b) { return 1; }

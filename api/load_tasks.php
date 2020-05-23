@@ -15,6 +15,24 @@
 
     if (empty($results)) { exit(json_encode(['default category' => []])); }
 
+    $weights = DB::queryFirstField(
+        "
+            SELECT task_set_order
+            FROM task_groups
+            WHERE group_id = %i
+        ",
+        $_GET['groupId']
+    );
+
+    if (!empty($weights)) {
+        $weights = array_flip(json_decode($weights, TRUE));
+    }
+
+    foreach ($results as $key => $value) {
+        $task_id = $value['task_id'];
+        $results[$key]['weight'] = $weights[$task_id] ?? -1;
+    }
+
     usort($results, "task_list_sort");
 
     $is_more_map = build_map($results);

@@ -24,7 +24,8 @@ $(function() {
         }
 
         if (operation == 'updateTask') {
-            updateTask();
+            updateTask(taskChanges);
+            taskChanges = {};
         }
     })
         .on('click', 'div[contenteditable]', function() {

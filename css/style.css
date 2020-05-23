@@ -77,3 +77,15 @@
     padding: 5px 15px;
     font-weight: bold;
 }
+
+.existing.task .row.draggable-mirror {
+    background-color: blue;
+    color: white;
+    opacity: 0.5;
+}
+.existing.task .row.draggable-source--is-dragging {
+    background-color: #333;
+    color: #eee;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}

@@ -33,7 +33,7 @@ function updateRespawn() {
 
     if ($(this).val() == 'custom' && $('#customString').val().trim() == '') { return; }
 
-    updateTask()
+    updateTask(taskChanges)
         .then(backToDetails);
 }
 

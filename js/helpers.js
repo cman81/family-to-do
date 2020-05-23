@@ -1,7 +1,7 @@
 var tempIdMap = {};
 var localBreadcrumb = {};
 
-function updateTask() {
+function updateTask(taskChanges) {
     const myRequest = new Request(
         'api/update_task.php',
         {
@@ -13,8 +13,6 @@ function updateTask() {
             body: JSON.stringify(taskChanges)
         }
     );
-
-    taskChanges = {};
 
     return fetch(myRequest);
 }

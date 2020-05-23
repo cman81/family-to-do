@@ -21,7 +21,8 @@ $(function() {
             taskChanges.dateDue = $(this).val();
         }
 
-        updateTask();
+        updateTask(taskChanges);
+        taskChanges = {};
     });
 
     $('body').on('click', 'button', function() {
@@ -31,7 +32,8 @@ $(function() {
         }
 
         if (operation == 'updateTask') {
-            updateTask();
+            updateTask(taskChanges);
+            taskChanges = {};
         }
 
         if (operation == 'addSubtask') {
@@ -143,7 +145,8 @@ $(function() {
         $container.find('.float-left').html('Repeat every...?');
 
         // server-side
-        updateTask();
+        updateTask(taskChanges);
+        taskChanges = {};
     }).on('click', '.category.row .float-right.icon', function() {
         // handler for removing category
 
@@ -152,7 +155,8 @@ $(function() {
         taskChanges.category = '';
 
         // server-side
-        updateTask();
+        updateTask(taskChanges);
+        taskChanges = {};
     });
 
     loadBreadcrumb();
