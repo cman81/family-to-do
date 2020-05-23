@@ -184,7 +184,7 @@ function loadSmartList(urlVars) {
 }
 
 function addTask() {
-    $addTask = document.getElementById('add-task');
+    let $addTask = document.getElementById('add-task');
     const taskName = $addTask.value;
     $addTask.value = '';
 
