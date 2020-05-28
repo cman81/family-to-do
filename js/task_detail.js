@@ -18,20 +18,16 @@ $(function() {
     $dueDate.datetimepicker({
         format: 'L',
         useCurrent: false,
-        keepInvalid: true,
-        ignoreReadonly: true,
     });
-    $dueDate.on('change.datetimepicker', function() {
-        if (localTask.dateDue == $(this).val()) {
-            delete taskChanges.dateDue;
-        } else {
-            let thisValue = $(this).val();
-            if (thisValue.length > 10) {
-                thisValue = thisValue.substring(0, 10);
-            }
+    $dueDate.on('change.datetimepicker', function(event) {
+        if (!(event.date._i != $(this).val())) { return; }
 
-            taskChanges.dateDue = thisValue;
+        let thisValue = $(this).val();
+        if (thisValue.length > 10) {
+            thisValue = thisValue.substring(0, 10);
         }
+
+        taskChanges.dateDue = thisValue;
 
         updateTask(taskChanges);
         taskChanges = { id: taskChanges.id };
@@ -39,7 +35,7 @@ $(function() {
 
     // @see https://stackoverflow.com/q/9435086
     $('#clear-dates').on('click', function(){
-        $dueDate.datetimepicker('clear');
+        $('#due-date').val('');
         taskChanges.dateDue = "";
         updateTask(taskChanges);
         taskChanges = { id: taskChanges.id };
