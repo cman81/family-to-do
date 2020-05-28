@@ -18,6 +18,7 @@ $(function() {
     $dueDate.datetimepicker({
         format: 'L',
         useCurrent: false,
+        ignoreReadonly: true,
     });
     $dueDate.on('change.datetimepicker', function(event) {
         if (!(event.date._i != $(this).val())) { return; }

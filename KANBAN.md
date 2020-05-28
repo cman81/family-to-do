@@ -17,6 +17,7 @@
 
 ## Doing
 - Use a better date picker (especially for iOS)
+
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
 - Retrieve tasks from the DB
