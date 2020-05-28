@@ -16,7 +16,7 @@ $(function() {
 
     let $dueDate = $('#due-date');
     $dueDate.datetimepicker({
-        format: 'MM/DD/YYYY',
+        format: 'L',
         useCurrent: false,
         keepInvalid: true,
     });
@@ -24,7 +24,12 @@ $(function() {
         if (localTask.dateDue == $(this).val()) {
             delete taskChanges.dateDue;
         } else {
-            taskChanges.dateDue = $(this).val();
+            let thisValue = $(this).val();
+            if (thisValue.length > 10) {
+                thisValue = thisValue.substring(0, 10);
+            }
+
+            taskChanges.dateDue = thisValue;
         }
 
         updateTask(taskChanges);
