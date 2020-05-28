@@ -15,8 +15,11 @@ $(function() {
     });
 
     let $dueDate = $('#due-date');
-    $dueDate.datepicker();
-    $dueDate.on('change', function() {
+    $dueDate.datetimepicker({
+        format: 'L',
+        useCurrent: false,
+    });
+    $dueDate.on('change.datetimepicker', function() {
         if (localTask.dateDue == $(this).val()) {
             delete taskChanges.dateDue;
         } else {
@@ -29,8 +32,7 @@ $(function() {
 
     // @see https://stackoverflow.com/q/9435086
     $('#clear-dates').on('click', function(){
-        $dueDate.attr('value', '');
-        $.datepicker._clearDate($dueDate);
+        $dueDate.datetimepicker('clear');
     });
 
     $('body').on('click', 'button', function() {
