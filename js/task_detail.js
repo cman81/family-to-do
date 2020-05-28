@@ -18,6 +18,7 @@ $(function() {
     $dueDate.datetimepicker({
         format: 'L',
         useCurrent: false,
+        keepInvalid: true,
     });
     $dueDate.on('change.datetimepicker', function() {
         if (localTask.dateDue == $(this).val()) {
