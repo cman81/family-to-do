@@ -17,6 +17,9 @@
             $set_clauses['task_name'] = $changes['name'];
         }
         if ($changes['dateDue']) {
+            if (strlen($changes['dateDue']) > 10) {
+                $changes['dateDue'] = substr($changes['dateDue'], 0, 10);
+            }
             $set_clauses['date_due'] = new DateTime($changes['dateDue']);
         }
         if ($changes['dateDue'] === '') {
