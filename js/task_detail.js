@@ -14,12 +14,9 @@ $(function() {
         taskChanges.category = $(this).val();
     });
 
-    $('#due-date').datepicker({
-        clearBtn: true,
-        autoclose: true,
-        todayHighlight: true
-    });
-    $('#due-date').on('changeDate', function() {
+    let $dueDate = $('#due-date');
+    $dueDate.datepicker();
+    $dueDate.on('change', function() {
         if (localTask.dateDue == $(this).val()) {
             delete taskChanges.dateDue;
         } else {
@@ -28,6 +25,12 @@ $(function() {
 
         updateTask(taskChanges);
         taskChanges = { id: taskChanges.id };
+    });
+
+    // @see https://stackoverflow.com/q/9435086
+    $('#clear-dates').on('click', function(){
+        $dueDate.attr('value', '');
+        $.datepicker._clearDate($dueDate);
     });
 
     $('body').on('click', 'button', function() {
