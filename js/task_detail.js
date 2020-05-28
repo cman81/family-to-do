@@ -16,7 +16,7 @@ $(function() {
 
     let $dueDate = $('#due-date');
     $dueDate.datetimepicker({
-        format: 'L',
+        format: 'MM/DD/YYYY',
         useCurrent: false,
         keepInvalid: true,
     });
