@@ -34,6 +34,9 @@ $(function() {
     // @see https://stackoverflow.com/q/9435086
     $('#clear-dates').on('click', function(){
         $dueDate.datetimepicker('clear');
+        taskChanges.dateDue = "";
+        updateTask(taskChanges);
+        taskChanges = { id: taskChanges.id };
     });
 
     $('body').on('click', 'button', function() {
