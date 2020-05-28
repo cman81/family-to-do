@@ -39,7 +39,7 @@ function renderTaskDetails(result)
 {
     $('#task-name').val(localTask.name);
     if (localTask.dateDue) {
-        $('#due-date').val(localTask.dateDue);
+        $('#due-date').val(rearrangeFormattedDate(localTask.dateDue));
     }
     if (localTask.taskNote) {
         $('.task-note.value').html(localTask.taskNote);
@@ -52,6 +52,14 @@ function renderTaskDetails(result)
         $target.removeClass('no-respawn');
         $target.find('.float-left').html(`Repeat: ${localTask.respawn}`);
     }
+}
+
+/**
+ * convert a date string from 'yyyy-mm-dd' format to 'mm/dd/yyyy' format
+ */
+function rearrangeFormattedDate(dateString) {
+    const dateParts = dateString.split('-'); // yyyy-mm-dd
+    return dateParts[1] + '/' + dateParts[2] + '/' + dateParts[0]; // mm/dd/yyyy
 }
 
 function loadTask() {

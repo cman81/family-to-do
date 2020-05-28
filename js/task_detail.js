@@ -14,7 +14,12 @@ $(function() {
         taskChanges.category = $(this).val();
     });
 
-    $('#due-date').on('change', function() {
+    $('#due-date').datepicker({
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true
+    });
+    $('#due-date').on('changeDate', function() {
         if (localTask.dateDue == $(this).val()) {
             delete taskChanges.dateDue;
         } else {
@@ -22,7 +27,7 @@ $(function() {
         }
 
         updateTask(taskChanges);
-        taskChanges = {};
+        taskChanges = { id: taskChanges.id };
     });
 
     $('body').on('click', 'button', function() {
@@ -33,7 +38,7 @@ $(function() {
 
         if (operation == 'updateTask') {
             updateTask(taskChanges);
-            taskChanges = {};
+            taskChanges = { id: taskChanges.id };
         }
 
         if (operation == 'addSubtask') {
@@ -146,7 +151,7 @@ $(function() {
 
         // server-side
         updateTask(taskChanges);
-        taskChanges = {};
+        taskChanges = { id: taskChanges.id };
     }).on('click', '.category.row .float-right.icon', function() {
         // handler for removing category
 
@@ -156,7 +161,7 @@ $(function() {
 
         // server-side
         updateTask(taskChanges);
-        taskChanges = {};
+        taskChanges = { id: taskChanges.id };
     });
 
     loadBreadcrumb();

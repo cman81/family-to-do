@@ -1,6 +1,8 @@
 # Kanban
 
 ## To Do
+- Apply custom sorting to the "today" smart list
+- Add a group
 - Fix task name container height so that characters like "g" and "y" are not cutoff
 - Handle longer task names, e.g.: "Wash towels (bathroom, basement, and power room) - midweek"
 - Move a task to another list
@@ -14,8 +16,7 @@
 - Swipe to delete
 
 ## Doing
-- Add a group
-
+- Use a better date picker (especially for iOS)
 ## Done
 - Render a list of incomplete tasks with: name, due date (as necessary), more details (as necessary)
 - Retrieve tasks from the DB
