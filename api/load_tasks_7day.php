@@ -42,7 +42,7 @@
      */
     function get_category_by_date($date_due) {
         $today = strtotime('-4 hours');
-        $today1159 = $today + (24 * 60 * 60 - 1); // 4 hours
+        $today1159 = strtotime('11:59pm', $today); // 4 hours
 
         if (strtotime($date_due) < $today1159) {
 var_dump(strtotime($date_due), $today1159);
