@@ -45,6 +45,7 @@
         $today = $today - (4 * 60 * 60); // 4 hours
 
         if (strtotime($date_due) < $today) {
+var_dump(strtotime($date_due), $today);
             return get_formatted_date('-4 hours') . ' (today)';
         }
 
